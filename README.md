@@ -1,6 +1,6 @@
 # ReactTest
 
-First of all, create `src/firebaseConfig.js` file with your data.
+First of all, create `src/firebase/config.js` file with your data.
 ```js
 export default {
   apiKey: 'your_data',
