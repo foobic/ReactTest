@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 
 class App extends Component {
+  state: {};
+
   render() {
     return (
       <div className="App">
-    afsd
-    <i class="material-icons">
-accessibility
-</i>
+        <i className="material-icons">accessibility</i>
       </div>
     );
   }
