@@ -5,7 +5,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-
+    afsd
+    <i class="material-icons">
+accessibility
+</i>
       </div>
     );
   }
