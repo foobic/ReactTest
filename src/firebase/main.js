@@ -1,3 +1,3 @@
-import { db, auth } from "./init";
+import { db, auth } from './init';
 
 export { db, auth };
