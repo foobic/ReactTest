@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import TestComponent from '../components/TestComponent';
+
+import Counter from './containers/Counter/Counter';
+import './App.css';
 
 class App extends Component {
   state: {};
@@ -7,8 +9,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <i className="material-icons">accessibility</i>
-        <TestComponent />
+        <Counter />
       </div>
     );
   }
