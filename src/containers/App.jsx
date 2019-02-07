@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import TestComponent from '../components/TestComponent';
 
 class App extends Component {
   state: {};
@@ -8,6 +8,7 @@ class App extends Component {
     return (
       <div className="App">
         <i className="material-icons">accessibility</i>
+        <TestComponent />
       </div>
     );
   }
