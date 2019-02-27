@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import Counter from './containers/Counter/Counter';
 import './App.css';
-import {db, auth} from './firebase/main'
+import firebase from './firebase/main'
+import Button from '@material-ui/core/Button';
 
 
 class App extends Component {
@@ -11,7 +11,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Counter />
+        <Button variant="contained" color="primary">
+          Hello World
+        </Button>
       </div>
     );
   }
