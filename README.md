@@ -1,4 +1,7 @@
 # ReactTest
+[![Build Status](https://travis-ci.com/testio123/Project3.svg?branch=master)](https://travis-ci.com/testio123/Project3)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6d25f64d27144e8eac28a5e5658f2d88)](https://www.codacy.com/app/testio123/Project3?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=testio123/Project3&amp;utm_campaign=Badge_Grade)
+
 
 Create `.env` file in root directory with Firebase configuration 
 ```
