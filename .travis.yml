@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "10"
+sudo: false
+before_install:
+  - npm install
+script:
+  - npm test
+after_success:
+  - npm test -- --coverage 
