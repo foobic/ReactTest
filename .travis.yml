@@ -8,3 +8,13 @@ script:
   - npm test
 after_success:
   - npm test -- --coverage 
+notifications:
+  slack:
+    rooms:
+      secure: bpfdaANPsTeww+0oguqNujDiqFxZgjNwFMxnhzNHKi6PWsAq/mMG2UzPVNhbCBgHRheQZsvPi8XdJLnqL9Edcduk4KvO7nVpkCab1ARVMpep7x2LBkns8cUb2AJSiiiBWyLSC+YHTNAK5ccJZRWW5XFK7jQNQ5QIpgadm6jo9zyZSL+00LtbgNksnvTgaoQBO8VUS2CTjkT9sM6Hvwo6H0XGlfOOALDzFrc8D8wzdU0i0X2MYCV/2qizL9t2GKj1KIeb4r8y3sSjxD70rzkc6oHluRdrqX7IozNvgFq53S3KkB+VLqypKN/zn1FYOI6sXqAKMl0cJ+5g/3GgPeFnynVwBZJZm052PmphU/wRQS6Sf2XFph8TxGI25Ek+1rVq/0+IqsHVtJuePNNmOjQVNJKtGko3bPcylXjtHrl+BEI5ScqaXkLrirsDLkTfnknua9Ce03uiaSZMPhUpy2Ek2ifCxXsAONyzJUphAiiGf/FIJ568fbF9sl26YR52M26ci6E8BIkktpWH+WOGsJNyyW+P+3gslxL9y8RSbpBxxw+4ByDasoNgJ+dS+G4TyYpTeIpBXUt3S8fzJHJ3O2m3HKMrtGpkh3MWqcz2WuegA6t4hH2FeGaqGAdUDVuNwQLfihnCzotI5OFCJwOjq9vF66duemaCqST70RL6v/50TGg=
+    on_success: always  
+    on_failure: always 
+    template:
+      - "Repo `%{repository_slug}` *%{result}* build (<%{build_url}|#%{build_number}>) for commit (<%{compare_url}|%{commit}>) on branch `%{branch}`."
+      - "Execution time: *%{duration}*"
+      - "Message: %{message}"
