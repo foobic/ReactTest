@@ -11,13 +11,11 @@ class HomeContainer extends Component {
 
   render() {
     const { test } = this.props;
-    console.log(test, this.props);
     return <Home test={test} />;
   }
 }
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     ...state.home,
   };

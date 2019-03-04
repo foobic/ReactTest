@@ -1,12 +1,13 @@
 import app from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/storage';
 import config from './config';
 
 class Firebase {
   constructor() {
     app.initializeApp(config);
-    console.log(config);
     this.auth = app.auth();
+    this.storage = app.storage();
   }
 
   // Auth API
