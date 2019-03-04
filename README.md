@@ -1,5 +1,7 @@
 # ReactTest
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6ff9b81fcc96481ca887696dbd1b98b6)](https://app.codacy.com/app/testio123/Project3?utm_source=github.com&utm_medium=referral&utm_content=testio123/Project3&utm_campaign=Badge_Grade_Dashboard)
+
 Create `.env` file in root directory with Firebase configuration 
 ```
 REACT_APP_API_KEY=your_api_key
