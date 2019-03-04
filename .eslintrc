@@ -6,6 +6,12 @@
     "node": true,
     "commonjs": true
   },
+  "parserOptions": {
+    "ecmaFeatures": {
+        "jsx": true
+    },
+    "sourceType": "module"
+  },
   "plugins": [
     "react",
     "jsx-a11y",
