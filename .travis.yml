@@ -1,21 +1,22 @@
 language: node_js
 node_js:
-  - "10"
+- '10'
 sudo: false
 cache: npm
 before_install:
-  - npm install
+- npm install
 script:
-  - npm test
+- npm test
 after_success:
-  - npm test -- --coverage 
+- npm test -- --coverage
 notifications:
   slack:
     rooms:
-      secure: bpfdaANPsTeww+0oguqNujDiqFxZgjNwFMxnhzNHKi6PWsAq/mMG2UzPVNhbCBgHRheQZsvPi8XdJLnqL9Edcduk4KvO7nVpkCab1ARVMpep7x2LBkns8cUb2AJSiiiBWyLSC+YHTNAK5ccJZRWW5XFK7jQNQ5QIpgadm6jo9zyZSL+00LtbgNksnvTgaoQBO8VUS2CTjkT9sM6Hvwo6H0XGlfOOALDzFrc8D8wzdU0i0X2MYCV/2qizL9t2GKj1KIeb4r8y3sSjxD70rzkc6oHluRdrqX7IozNvgFq53S3KkB+VLqypKN/zn1FYOI6sXqAKMl0cJ+5g/3GgPeFnynVwBZJZm052PmphU/wRQS6Sf2XFph8TxGI25Ek+1rVq/0+IqsHVtJuePNNmOjQVNJKtGko3bPcylXjtHrl+BEI5ScqaXkLrirsDLkTfnknua9Ce03uiaSZMPhUpy2Ek2ifCxXsAONyzJUphAiiGf/FIJ568fbF9sl26YR52M26ci6E8BIkktpWH+WOGsJNyyW+P+3gslxL9y8RSbpBxxw+4ByDasoNgJ+dS+G4TyYpTeIpBXUt3S8fzJHJ3O2m3HKMrtGpkh3MWqcz2WuegA6t4hH2FeGaqGAdUDVuNwQLfihnCzotI5OFCJwOjq9vF66duemaCqST70RL6v/50TGg=
-    on_success: always  
-    on_failure: always 
+      secure: Fdz2CK83do9vk4JfUTnK5cvUq0/tpIEXcR2RDyNa550CXt4S3f0fDNJq4M0P/ckBshy/eOU2znkPlX+eaU+NZIHiAB0wDs4afXNPnIuG3IGKZqm2U3wYSnxihwap2RFrxxRCIt0jaRttZXTL7cZRCJS7ssgCIC8zs2YByQBmLlLCgvZrsbCT5OhMlGutuHK3LLwxQw5sfrMLe4oWwGGec8ae3zlftBn+0DvT6ewnDZhx9OObCS/1bDcr/XT6I9prRHg6AsO3aLZG86t63l4pgtzzfHhGzOoMa+m1nv+7cmNutrA1rOiy5lITBfn85bCnlNy36g3dF7aRcGqIfpvZm/zMnJXfwE4ib7tCoGWXK5wCxParHHbPUTs4eke6m6Mzgj6sq9KUpLxymB9vlTaeBi6+y3oR4DsddPNRbUqLHDtVDjrP6Y5BoPZppl57XarTH9qT9F+Cuhy9UI7jlPmxa4ibmjLk/cV+zRHBk0guqkecrmeyD9qAl8d5SqL4WHrspN3vh9zfQaX0eSZLdV/6kAHwpxsxgvXbPK2NUmcVfY4TNWclBnDzeTmROqDKLw3ixk6uviwVCnTEFli0NY2wok9wuFe7zoba5Hm0inzNrYjf9ym1D4CDrc6T2Kf0rGwKLDXmEMSs6K0M+jvKhfGgQRbPY+bXjEHgYhNcUi6iFW0=
+    on_success: always
+    on_failure: always
     template:
-      - "Repo `%{repository_slug}` *%{result}* build (<%{build_url}|#%{build_number}>) for commit (<%{compare_url}|%{commit}>) on branch `%{branch}`."
-      - "Execution time: *%{duration}*"
-      - "Message: %{message}"
+    - Repo `%{repository_slug}` *%{result}* build (<%{build_url}|#%{build_number}>)
+      for commit (<%{compare_url}|%{commit}>) on branch `%{branch}`.
+    - 'Execution time: *%{duration}*'
+    - 'Message: %{message}'
