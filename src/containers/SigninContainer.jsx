@@ -9,8 +9,9 @@ class SigninContainer extends Component {
     dispatch(getTest('neeeewww'));
   }
 
-  render() {  
-    const { test } = this.props;
+  render() {
+    const { test, firebase } = this.props;
+    console.log(firebase);
     return <Signin test={test} />;
   }
 }

@@ -7,7 +7,7 @@
     "commonjs": true
   },
   "parserOptions": {
-    "ecmaFeatures": {
+    "ecmaFeatures": { 
         "jsx": true
     },
     "sourceType": "module"
@@ -19,5 +19,12 @@
   ],
   "globals": {
     "it": true
+  },
+  "rules": {
+    "react/jsx-indent": "off",
+    "react/jsx-wrap-multilines": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/require-default-props": "off",
+    "react/prop-types": "off"
   }
 }

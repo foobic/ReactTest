@@ -2,6 +2,7 @@ import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/storage';
 import config from './config';
+import FirebaseContext from './context';
 
 class Firebase {
   constructor() {
@@ -26,4 +27,4 @@ class Firebase {
   signOut = () => this.auth.signOut();
 }
 
-export default Firebase;
+export { Firebase, FirebaseContext };
