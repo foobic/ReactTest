@@ -1,9 +1,5 @@
-import { createStore, combineReducers } from 'redux';
-import HomeReducer from './Home/reducers';
-
-const reducers = combineReducers({
-  home: HomeReducer,
-});
+import { createStore } from 'redux';
+import reducers from './reducers';
 
 const configureStore = preloadedState => createStore(reducers, preloadedState);
 

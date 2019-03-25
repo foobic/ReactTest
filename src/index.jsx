@@ -7,10 +7,11 @@ import configureStore from './store';
 import './index.css';
 
 const store = configureStore();
+const AppContext = React.createContext();
 
 ReactDOM.render(
   <BrowserRouter>
-    <Provider store={store}>
+    <Provider store={store} context={AppContext}>
       <App />
     </Provider>
   </BrowserRouter>,
