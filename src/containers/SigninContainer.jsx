@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Home } from '../components';
-import { getTest } from '../store/Home/actions';
+import { Signin } from '../components';
+import { getTest } from '../store/Signin/actions';
 
-class HomeContainer extends Component {
+class SigninContainer extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(getTest('neeeewww'));
@@ -11,14 +11,14 @@ class HomeContainer extends Component {
 
   render() {  
     const { test } = this.props;
-    return <Home test={test} />;
+    return <Signin test={test} />;
   }
 }
 
 function mapStateToProps(state) {
   return {
-    ...state.home,
+    ...state.signin,
   };
 }
 
-export default connect(mapStateToProps)(HomeContainer);
+export default connect(mapStateToProps)(SigninContainer);

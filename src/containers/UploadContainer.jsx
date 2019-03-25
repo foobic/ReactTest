@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Home } from '../components';
-import { getTest } from '../store/Home/actions';
+import { Upload } from '../components';
+import { getTest } from '../store/Upload/actions';
 
-class HomeContainer extends Component {
+class UploadContainer extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(getTest('neeeewww'));
@@ -11,14 +11,14 @@ class HomeContainer extends Component {
 
   render() {  
     const { test } = this.props;
-    return <Home test={test} />;
+    return <Upload test={test} />;
   }
 }
 
 function mapStateToProps(state) {
   return {
-    ...state.home,
+    ...state.upload,
   };
 }
 
-export default connect(mapStateToProps)(HomeContainer);
+export default connect(mapStateToProps)(UploadContainer);

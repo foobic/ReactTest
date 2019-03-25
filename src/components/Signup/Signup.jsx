@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Home = ({ test }) => {
+const Singup = ({ test }) => {
   return (
     <div>
-      Home {test}
+      Singup {test}
     </div>
   );
 };
 
-Home.propTypes = {
+Singup.propTypes = {
   test: PropTypes.string,
 };
 
-export default Home;
+export default Singup;
