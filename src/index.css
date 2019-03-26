@@ -12,3 +12,10 @@ body {
   background-image: url("./assets/Large-Triangles.svg");
 }
 
+html, body {
+  height: 100%;
+}
+
+#root{
+  height: 100%;
+}
