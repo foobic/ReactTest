@@ -1,12 +1,78 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
+import AddIcon from '@material-ui/icons/Add';
+import { SocialIcon } from 'react-social-icons';
+import mainTheme from '../../assets/theme';
 
-const Signin = ({ test }) => {
-  return <div>Signin {test} </div>;
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+  extendedIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  icon: {
+    width: 25,
+    height: 25,
+  },
+  leftIcon: {
+    color: theme.palette.secondary.dark,
+    marginRight: theme.spacing.unit,
+  },
+  fullHeight: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  options: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    maxWidth: 500,
+    minWidth: 250,
+    padding: '20px 20px',
+    borderRadius: '10px',
+    margin: '0 auto',
+    background: 'white',
+  },
+  delimiter: {
+    width: '100%',
+    background: theme.palette.primary.main,
+  },
+});
+
+const Signin = props => {
+  const { classes, redirectToSignup } = props;
+  const iconSize = { height: 25, width: 25 };
+
+  return (
+    <div className={classes.fullHeight}>
+      <div className={classes.options}>
+        <Button variant="contained" color="primary" className={classes.button}>
+          <SocialIcon
+            network="google"
+            className={classNames(classes.icon, classes.leftIcon)}
+            style={iconSize}
+          />
+          Sign in with Google
+        </Button>
+        <hr className={classes.delimiter} />
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={redirectToSignup}>
+          <AddIcon
+            className={classNames(classes.extendedIcon, classes.leftIcon)}
+          />
+          Sign up
+        </Button>
+      </div>
+    </div>
+  );
 };
 
-Signin.propTypes = {
-  test: PropTypes.string,
-};
-
-export default Signin;
+export default withStyles(styles(mainTheme))(Signin);

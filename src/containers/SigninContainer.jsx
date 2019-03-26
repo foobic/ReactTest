@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Signin } from '../components';
+import * as ROUTES from '../routes';
+
 import { getTest } from '../store/Signin/actions';
 
 class SigninContainer extends Component {
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(getTest('neeeewww'));
+  constructor(props) {
+    super(props);
+    this.redirectToSignup = this.redirectToSignup.bind(this);
+  }
+
+  redirectToSignup() {
+    this.props.history.push(ROUTES.SIGN_UP);
   }
 
   render() {
     const { test, firebase } = this.props;
-    console.log(firebase);
-    return <Signin test={test} />;
+    return <Signin test={test} redirectToSignup={this.redirectToSignup} />;
   }
 }
 
@@ -22,4 +28,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(SigninContainer);
+export default withRouter(connect(mapStateToProps)(SigninContainer));

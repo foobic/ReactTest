@@ -24,6 +24,7 @@
     "react/jsx-indent": "off",
     "react/jsx-wrap-multilines": "off",
     "react/jsx-one-expression-per-line": "off",
+    "react/jsx-closing-bracket-location": "off",
     "react/require-default-props": "off",
     "react/prop-types": "off"
   }
