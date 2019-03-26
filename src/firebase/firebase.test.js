@@ -1,4 +1,4 @@
-import Firebase from './index';
+import { Firebase } from './index';
 
 const firebase = new Firebase();
 const storageRef = firebase.storage.ref();
