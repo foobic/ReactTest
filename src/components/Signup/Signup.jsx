@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import In from '@material-ui/icons/Input';
-import { SocialIcon } from 'react-social-icons';
+import TextField from '@material-ui/core/TextField';
 import mainTheme from '../../assets/theme';
 
 const styles = theme => ({
@@ -42,22 +42,75 @@ const styles = theme => ({
     width: '100%',
     background: theme.palette.primary.main,
   },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+  },
 });
 
 const Signup = props => {
-  const { classes, redirectToSignup } = props;
-  const iconSize = { height: 25, width: 25 };
+  const {
+    classes,
+    redirectToSignup,
+    onChangeEmailHandler,
+    onChangePassHandler,
+    onChangePassRepeatHandler,
+    signupWithEmail,
+    state,
+  } = props;
+  const { email, pass, passRepeat } = state;
 
   return (
     <div className={classes.fullHeight}>
       <div className={classes.options}>
-        <Button variant="contained" color="primary" className={classes.button}>
-          <SocialIcon
-            network="google"
-            className={classNames(classes.icon, classes.leftIcon)}
-            style={iconSize}
-          />
-          Sign up with Google
+        <form className={classes.container} noValidate autoComplete="off">
+          <div>
+            <TextField
+              id="outlined-email-input"
+              label="Email"
+              className={classes.textField}
+              type="email"
+              name="email"
+              autoComplete="email"
+              margin="normal"
+              variant="outlined"
+              value={email}
+              onChange={onChangeEmailHandler}
+            />
+          </div>
+          <div>
+            <TextField
+              id="outlined-password-input"
+              label="Password"
+              className={classes.textField}
+              type="password"
+              autoComplete="current-password"
+              margin="normal"
+              variant="outlined"
+              value={pass}
+              onChange={onChangePassHandler}
+            />
+          </div>
+          <div>
+            <TextField
+              id="outlined-password-input"
+              label="Repeat password"
+              className={classes.textField}
+              type="password"
+              autoComplete="current-password"
+              margin="normal"
+              variant="outlined"
+              value={passRepeat}
+              onChange={onChangePassRepeatHandler}
+            />
+          </div>
+        </form>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={signupWithEmail}>
+          Sign up
         </Button>
         <hr className={classes.delimiter} />
         <Button

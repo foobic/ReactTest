@@ -7,6 +7,7 @@ import FirebaseContext from './context';
 class Firebase {
   constructor() {
     app.initializeApp(config);
+    this.googleProvider = new app.auth.GoogleAuthProvider();
     this.auth = app.auth();
     this.storage = app.storage();
   }
@@ -23,6 +24,8 @@ class Firebase {
   doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
 
   doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
+
+  doSignInWithGoogle = () => this.auth.signInWithPopup(this.googleProvider);
 
   signOut = () => this.auth.signOut();
 }
