@@ -1,0 +1,1 @@
+export const AUTHORIZE_ACTION = 'AUTHORIZE_ACTION';
