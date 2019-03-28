@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Signin } from '../components';
 import * as ROUTES from '../routes';
 
-import { getTest } from '../store/Signin/actions';
+import { authorize } from '../store/Auth/actions';
 
 class SigninContainer extends Component {
   constructor(props) {
@@ -45,26 +45,28 @@ class SigninContainer extends Component {
   }
 
   async signinWithEmail() {
-    const { firebase } = this.props;
+    const { firebase, history, authorize } = this.props;
     const { email, pass } = this.state;
     await firebase
       .signInWithEmailAndPassword(email, pass)
-      .then(socialAuthUser => {
+      .then(authedUser => {
         this.setState({ emailDialogIsOpen: false });
-        console.log('authorized');
+        authorize(authedUser.user.uid);
+        history.push(ROUTES.HOME);
       })
       .catch(error => {
+        // TODO: Handle error
         console.log(error);
       });
   }
 
   async signinWithGoogle() {
-    const { firebase } = this.props;
+    const { firebase, history, authorize } = this.props;
     await firebase
       .doSignInWithGoogle()
-      .then(socialAuthUser => {
-        console.log('authorized');
-        // this.setState({ error: null });
+      .then(authedUser => {
+        authorize(authedUser.user.uid);
+        history.push(ROUTES.HOME);
       })
       .catch(error => {
         this.setState({ error });
@@ -89,10 +91,21 @@ class SigninContainer extends Component {
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return {
-    ...state.signin,
+    ...state.auth,
   };
-}
+};
 
-export default withRouter(connect(mapStateToProps)(SigninContainer));
+const mapDispatchToProps = dispatch => ({
+  authorize: uid => {
+    dispatch(authorize(uid));
+  },
+});
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(SigninContainer),
+);

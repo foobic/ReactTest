@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Signup } from '../components';
 import * as ROUTES from '../routes';
-
-import { getTest } from '../store/Signup/actions';
+import { authorize } from '../store/Auth/actions';
 
 class SignupContainer extends Component {
   constructor(props) {
@@ -19,7 +18,7 @@ class SignupContainer extends Component {
   state = {
     email: '',
     pass: '',
-    passRepeat: '',
+    passRepeat: '', // TODO: Password Validation
   };
 
   onChangeEmailHandler(e) {
@@ -39,15 +38,17 @@ class SignupContainer extends Component {
   }
 
   async signupWithEmail() {
-    const { firebase } = this.props;
+    const { firebase, history, authorize } = this.props;
+    const { email, pass } = this.state;
     await firebase
-      .createUserWithEmailAndPassword(this.email, this.pass)
-      .then(() => {
-        console.log(
-          `User created with email: ${this.email} and pass: ${this.pass}`,
-        );
+      .createUserWithEmailAndPassword(email, pass)
+      .then(authedUser => {
+        console.log(`User created with email: ${email} and pass: ${pass}`);
+        authorize(authedUser.user.uid);
+        history.push(ROUTES.HOME);
       })
       .catch(e => {
+        // TODO: Handle error
         console.log('Err while signup with Email:', e);
       });
   }
@@ -68,10 +69,21 @@ class SignupContainer extends Component {
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return {
-    ...state.signup,
+    ...state.auth,
   };
-}
+};
 
-export default withRouter(connect(mapStateToProps)(SignupContainer));
+const mapDispatchToProps = dispatch => ({
+  authorize: uid => {
+    dispatch(authorize(uid));
+  },
+});
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(SignupContainer),
+);
