@@ -10,20 +10,23 @@ import {
 } from './containers';
 import { FirebaseContext } from './firebase';
 
-const App = () => {
+const App = props => {
   return (
     <FirebaseContext.Consumer>
       {firebase => {
+        const { auth } = props.store.getState();
         return (
           <Switch>
             <PrivateRoute
               exact
               path={ROUTES.HOME}
+              authed={!!auth.uid}
               component={() => <HomeContainer firebase={firebase} />}
             />
             <PrivateRoute
               exact
               path={ROUTES.UPLOAD}
+              authed={!!auth.uid}
               component={() => <UploadContainer firebase={firebase} />}
             />
             <Route

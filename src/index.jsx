@@ -16,7 +16,7 @@ ReactDOM.render(
     <MuiThemeProvider theme={theme}>
       <Provider store={store}>
         <FirebaseContext.Provider value={new Firebase()}>
-          <App />
+          <App store={store} />
         </FirebaseContext.Provider>
       </Provider>
     </MuiThemeProvider>
