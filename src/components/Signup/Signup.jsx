@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import In from '@material-ui/icons/Input';
 import TextField from '@material-ui/core/TextField';
+import { withRouter } from 'react-router-dom';
 import mainTheme from '../../assets/theme';
 
 const styles = theme => ({
@@ -126,4 +127,4 @@ const Signup = props => {
   );
 };
 
-export default withStyles(styles(mainTheme))(Signup);
+export default withRouter(withStyles(styles(mainTheme))(Signup));

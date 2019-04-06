@@ -1,4 +1,4 @@
-import { Switch, Route } from 'react-router';
+import { Switch, Route, withRouter } from 'react-router';
 import React from 'react';
 import * as ROUTES from './routes';
 import { PrivateRoute } from './helpers';
@@ -46,4 +46,4 @@ const App = props => {
   );
 };
 
-export default App;
+export default withRouter(App);

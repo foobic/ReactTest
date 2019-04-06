@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { connectRouter, routerMiddleware } from 'connected-react-router'
 import { Signup } from '../components';
 import * as ROUTES from '../routes';
 import { authorize } from '../store/Auth/actions';
+import history from '../history';
 
 class SignupContainer extends Component {
   constructor(props) {
@@ -81,7 +83,7 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default withRouter(
+export default connectRouter(history)(
   connect(
     mapStateToProps,
     mapDispatchToProps,

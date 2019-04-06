@@ -1,7 +1,7 @@
 import { AUTHORIZE_ACTION } from './actionTypes';
 
 const initialState = {
-  uid: '',
+  uid: '123',
   accessToken: '123',
 };
 

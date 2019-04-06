@@ -9,6 +9,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { withRouter } from 'react-router-dom';
 import mainTheme from '../../assets/theme';
 
 const styles = theme => ({
@@ -64,13 +65,16 @@ const Signin = props => {
     handleCloseEmailDialog,
     onChangeEmailHandler,
     onChangePassHandler,
+    auth,
   } = props;
   const iconSize = { height: 25, width: 25 };
   const { emailDialogIsOpen } = state;
+  console.log(auth);
 
   return (
     <div className={classes.fullHeight}>
       <div className={classes.options}>
+        {auth.uid}
         <Button
           variant="contained"
           color="primary"
@@ -145,4 +149,4 @@ const Signin = props => {
   );
 };
 
-export default withStyles(styles(mainTheme))(Signin);
+export default withRouter(withStyles(styles(mainTheme))(Signin));

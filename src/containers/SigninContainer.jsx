@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { connectRouter, routerMiddleware, push } from 'connected-react-router';
+import { bindActionCreators } from 'redux';
 import { Signin } from '../components';
+
 import * as ROUTES from '../routes';
 
 import { authorize } from '../store/Auth/actions';
+import history from '../history';
 
 class SigninContainer extends Component {
   constructor(props) {
@@ -52,7 +56,6 @@ class SigninContainer extends Component {
       .then(authedUser => {
         this.setState({ emailDialogIsOpen: false });
         authorize(authedUser.user.uid);
-        history.push(ROUTES.HOME);
       })
       .catch(error => {
         // TODO: Handle error
@@ -61,12 +64,18 @@ class SigninContainer extends Component {
   }
 
   async signinWithGoogle() {
-    const { firebase, history, authorize } = this.props;
+    const { firebase, authorize, redirectToHome } = this.props;
     await firebase
       .doSignInWithGoogle()
       .then(authedUser => {
+        console.log(authedUser);
+        console.log(this.props);
         authorize(authedUser.user.uid);
-        history.push(ROUTES.HOME);
+        // this.context.history.push(ROUTES.HOME);
+        // redirectToHome();
+        console.log(push);
+        console.log(push(ROUTES.HOME));
+        console.log(this.props);
       })
       .catch(error => {
         this.setState({ error });
@@ -74,7 +83,7 @@ class SigninContainer extends Component {
   }
 
   render() {
-    const { test, firebase } = this.props;
+    const { test, firebase, auth } = this.props;
     return (
       <Signin
         test={test}
@@ -86,6 +95,7 @@ class SigninContainer extends Component {
         handleCloseEmailDialog={this.handleCloseEmailDialog}
         onChangeEmailHandler={this.onChangeEmailHandler}
         onChangePassHandler={this.onChangePassHandler}
+        auth={auth}
       />
     );
   }
@@ -93,19 +103,20 @@ class SigninContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    ...state.auth,
+    auth: { ...state.auth },
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  authorize: uid => {
-    dispatch(authorize(uid));
-  },
-});
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      authorize,
+      redirectToHome: () => push(ROUTES.HOME),
+    },
+    dispatch,
+  );
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(SigninContainer),
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SigninContainer);
