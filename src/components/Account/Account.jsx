@@ -54,7 +54,7 @@ const styles = theme => ({
   },
 });
 
-const Signin = props => {
+const Account = props => {
   const {
     classes,
     redirectToSignup,
@@ -69,7 +69,6 @@ const Signin = props => {
   } = props;
   const iconSize = { height: 25, width: 25 };
   const { emailDialogIsOpen } = state;
-  console.log(auth);
 
   return (
     <div className={classes.fullHeight}>

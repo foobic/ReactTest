@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { connectRouter, routerMiddleware, push } from 'connected-react-router';
+import { push } from 'connected-react-router';
 import { bindActionCreators } from 'redux';
-import { Signin } from '../components';
-
-import * as ROUTES from '../routes';
-
 import { authorize } from '../store/Auth/actions';
-import history from '../history';
+import * as ROUTES from '../routes';
+import { Signin } from '../components';
 
 class SigninContainer extends Component {
   constructor(props) {
     super(props);
-    this.redirectToSignup = this.redirectToSignup.bind(this);
     this.signinWithGoogle = this.signinWithGoogle.bind(this);
     this.signinWithEmail = this.signinWithEmail.bind(this);
     this.openEmailDialog = this.openEmailDialog.bind(this);
@@ -36,10 +31,6 @@ class SigninContainer extends Component {
     this.setState({ pass: e.target.value });
   }
 
-  redirectToSignup() {
-    this.props.history.push(ROUTES.SIGN_UP);
-  }
-
   handleCloseEmailDialog() {
     this.setState({ emailDialogIsOpen: false });
   }
@@ -49,7 +40,7 @@ class SigninContainer extends Component {
   }
 
   async signinWithEmail() {
-    const { firebase, history, authorize } = this.props;
+    const { firebase, authorize } = this.props;
     const { email, pass } = this.state;
     await firebase
       .signInWithEmailAndPassword(email, pass)
@@ -64,18 +55,11 @@ class SigninContainer extends Component {
   }
 
   async signinWithGoogle() {
-    const { firebase, authorize, redirectToHome } = this.props;
+    const { firebase, authorize } = this.props;
     await firebase
       .doSignInWithGoogle()
       .then(authedUser => {
-        console.log(authedUser);
-        console.log(this.props);
         authorize(authedUser.user.uid);
-        // this.context.history.push(ROUTES.HOME);
-        // redirectToHome();
-        console.log(push);
-        console.log(push(ROUTES.HOME));
-        console.log(this.props);
       })
       .catch(error => {
         this.setState({ error });
@@ -83,11 +67,11 @@ class SigninContainer extends Component {
   }
 
   render() {
-    const { test, firebase, auth } = this.props;
+    const { auth, redirectToSignup } = this.props;
+
     return (
       <Signin
-        test={test}
-        redirectToSignup={this.redirectToSignup}
+        redirectToSignup={redirectToSignup}
         signinWithGoogle={this.signinWithGoogle}
         signinWithEmail={this.signinWithEmail}
         state={this.state}
@@ -112,6 +96,7 @@ const mapDispatchToProps = dispatch =>
     {
       authorize,
       redirectToHome: () => push(ROUTES.HOME),
+      redirectToSignup: () => push(ROUTES.SIGN_UP),
     },
     dispatch,
   );
