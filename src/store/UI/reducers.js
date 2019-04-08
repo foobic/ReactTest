@@ -1,11 +1,22 @@
-import { ENQUEUE_SNACKBAR, REMOVE_SNACKBAR } from './actionTypes';
+import {
+  ENQUEUE_SNACKBAR,
+  REMOVE_SNACKBAR,
+  CHANGE_LOADER_STATUS,
+  CHANGE_QUIT_DIALOG_STATUS,
+} from './actionTypes';
 
-const defaultState = {
+const initialState = {
+  isLoading: false,
   notifications: [],
+  isQuitDialogOpen: false,
 };
 
-export default (state = defaultState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
+    case CHANGE_LOADER_STATUS:
+      return { ...state, isLoading: action.payload.isLoading };
+    case CHANGE_QUIT_DIALOG_STATUS:
+      return { ...state, isQuitDialogOpen: action.payload.isQuitDialogOpen };
     case ENQUEUE_SNACKBAR:
       return {
         ...state,
@@ -24,7 +35,6 @@ export default (state = defaultState, action) => {
           notification => notification.key !== action.key,
         ),
       };
-
     default:
       return state;
   }

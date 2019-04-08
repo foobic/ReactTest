@@ -4,7 +4,7 @@ import * as ROUTES from './routes';
 import { PrivateRoute } from './helpers';
 import {
   SignupContainer,
-  SigninContainer,
+  AccountContainer,
   HomeContainer,
   UploadContainer,
 } from './containers';
@@ -20,19 +20,19 @@ const App = props => {
             <PrivateRoute
               exact
               path={ROUTES.HOME}
-              authed={!!auth.uid}
+              authed={!!auth.user}
               component={() => <HomeContainer firebase={firebase} />}
             />
             <PrivateRoute
               exact
               path={ROUTES.UPLOAD}
-              authed={!!auth.uid}
+              authed={!!auth.user}
               component={() => <UploadContainer firebase={firebase} />}
             />
             <Route
               exact
-              path={ROUTES.SIGN_IN}
-              component={() => <SigninContainer firebase={firebase} />}
+              path={ROUTES.ACCOUNT}
+              component={() => <AccountContainer firebase={firebase} />}
             />
             <Route
               exact

@@ -12,7 +12,7 @@ it.skip('Sign up user via Email', async done => {
     .catch(done.fail);
 });
 
-it('Upload smth to storage', async done => {
+it.skip('Upload smth to storage', async done => {
   const testMessage = 'Test message';
 
   await storageRef

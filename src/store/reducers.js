@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
-import HomeReducer from './Home/reducers';
+import PicturesReducer from './Pictures/reducers';
 import AuthReducer from './Auth/reducers';
-import UploadReducer from './Upload/reducers';
+import UIReducer from './UI/reducers';
 
 export default history =>
   combineReducers({
     router: connectRouter(history),
-    home: HomeReducer,
+    ui: UIReducer,
+    pictures: PicturesReducer,
     auth: AuthReducer,
-    upload: UploadReducer,
   });

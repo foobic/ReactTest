@@ -1,6 +1,6 @@
 import SignupContainer from './SignupContainer';
-import SigninContainer from './SigninContainer';
+import AccountContainer from './AccountContainer';
 import HomeContainer from './HomeContainer';
 import UploadContainer from './UploadContainer';
 
-export { SignupContainer, SigninContainer, HomeContainer, UploadContainer };
+export { SignupContainer, AccountContainer, HomeContainer, UploadContainer };

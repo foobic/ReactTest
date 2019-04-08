@@ -1,15 +1,28 @@
-import { applyMiddleware, compose, createStore } from 'redux';
-import { routerMiddleware, connectRouter } from 'connected-react-router';
+import { applyMiddleware, createStore } from 'redux';
+import { routerMiddleware } from 'connected-react-router';
+import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction';
+import thunk from 'redux-thunk';
 import createRootReducer from './reducers';
 import history from '../history';
 
-export const configureStore = preloadedState =>
-  createStore(
+const composeEnhancers = composeWithDevTools({
+  // options like actionSanitizer, stateSanitizer
+  // trace: true,
+});
+
+const configureStore = preloadedState => {
+  const store = createStore(
     createRootReducer(history),
     preloadedState,
-    compose(
+    composeEnhancers(
       applyMiddleware(
         routerMiddleware(history), // for dispatching history actions
+        thunk,
       ),
     ),
   );
+
+  return store;
+};
+
+export default configureStore;

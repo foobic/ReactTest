@@ -1,6 +1,6 @@
-import Home from './Home/Home';
-import Signin from './Signin/Signin';
-import Signup from './Signup/Signup';
-import Upload from './Upload/Upload';
+import Home from './Home';
+import Account from './Account';
+import Signup from './Signup';
+import Upload from './Upload';
 
-export { Signup, Signin, Home, Upload };
+export { Signup, Account, Home, Upload };
