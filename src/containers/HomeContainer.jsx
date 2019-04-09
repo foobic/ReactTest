@@ -3,7 +3,6 @@ import { push } from 'connected-react-router';
 import { bindActionCreators } from 'redux';
 import { Home } from '../components';
 import * as ROUTES from '../routes';
-import { changeQuitDialogStatus } from '../store/UI/actions';
 import { fetchAllPictures, removePicture } from '../store/Pictures/actions';
 
 const mapStateToProps = state => {
@@ -16,9 +15,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      changeQuitDialogStatus,
       fetchAllPictures,
       removePicture,
+      redirectToAccount: () => push(ROUTES.ACCOUNT),
       redirectToUpload: () => push(ROUTES.UPLOAD),
       redirectToSignup: () => push(ROUTES.SIGN_UP),
     },

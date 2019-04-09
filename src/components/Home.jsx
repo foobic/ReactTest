@@ -4,7 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar/index';
 import IconButton from '@material-ui/core/IconButton/index';
 import Typography from '@material-ui/core/Typography/index';
 import { withStyles } from '@material-ui/core/styles/index';
-import AccountCircle from '@material-ui/icons/ExitToApp';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 import Fab from '@material-ui/core/Fab/index';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button/index';
@@ -14,6 +14,8 @@ import DialogContent from '@material-ui/core/DialogContent/index';
 import DialogContentText from '@material-ui/core/DialogContentText/index';
 import DialogTitle from '@material-ui/core/DialogTitle/index';
 import withMobileDialog from '@material-ui/core/withMobileDialog/index';
+import HomeIcon from '@material-ui/icons/Home';
+import classNames from 'classnames';
 import Gallery from './Gallery';
 import mainTheme from '../assets/theme';
 
@@ -46,7 +48,6 @@ const styles = theme => ({
 });
 
 class Home extends Component {
-
   componentDidMount() {
     document.title = 'Home';
     this.props.fetchAllPictures();
@@ -61,9 +62,9 @@ class Home extends Component {
       fullScreen,
       pictures,
       removePicture,
+      redirectToAccount,
     } = this.props;
 
-    const { isQuitDialogOpen } = ui;
     return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -80,7 +81,7 @@ class Home extends Component {
               <IconButton
                 aria-owns="material-appbar"
                 aria-haspopup="true"
-                onClick={() => changeQuitDialogStatus(true)}
+                onClick={redirectToAccount}
                 color="inherit">
                 <AccountCircle />
               </IconButton>
@@ -94,26 +95,6 @@ class Home extends Component {
           onClick={redirectToUpload}>
           <AddIcon />
         </Fab>
-
-        {/* Quit Dialog */}
-        <Dialog
-          fullScreen={fullScreen}
-          open={isQuitDialogOpen}
-          onClose={() => changeQuitDialogStatus(false)}
-          aria-labelledby="responsive-dialog-title">
-          <DialogTitle id="responsive-dialog-title">Sign out</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Are you sure you want to sign out?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => changeQuitDialogStatus(false)}>No</Button>
-            <Button onClick={() => {}} autoFocus>
-              Yes
-            </Button>
-          </DialogActions>
-        </Dialog>
 
         {/*  Images */}
         <Gallery images={pictures.pictures} removePicture={removePicture} />
