@@ -3,7 +3,7 @@ import { push } from 'connected-react-router';
 import { bindActionCreators } from 'redux';
 import { Upload } from '../components';
 import * as ROUTES from '../routes';
-import { setPictures, resetPictures, upload } from '../store/Pictures/actions';
+import { setFiles, resetFiles, upload } from '../store/Pictures/actions';
 
 const mapStateToProps = state => {
   return {
@@ -15,8 +15,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      setPictures,
-      resetPictures,
+      setFiles,
+      resetFiles,
       upload,
       redirectToHome: () => push(ROUTES.HOME),
     },

@@ -4,10 +4,12 @@ import { bindActionCreators } from 'redux';
 import { Home } from '../components';
 import * as ROUTES from '../routes';
 import { changeQuitDialogStatus } from '../store/UI/actions';
+import { fetchAllPictures } from '../store/Pictures/actions';
 
 const mapStateToProps = state => {
   return {
     ui: { ...state.ui },
+    pictures: { ...state.pictures }
   };
 };
 
@@ -15,6 +17,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       changeQuitDialogStatus,
+      fetchAllPictures,
       redirectToUpload: () => push(ROUTES.UPLOAD),
       redirectToSignup: () => push(ROUTES.SIGN_UP),
     },

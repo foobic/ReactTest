@@ -4,6 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProductio
 import thunk from 'redux-thunk';
 import createRootReducer from './reducers';
 import history from '../history';
+import { Firebase } from '../firebase';
 
 const composeEnhancers = composeWithDevTools({
   // options like actionSanitizer, stateSanitizer
@@ -25,4 +26,4 @@ const configureStore = preloadedState => {
   return store;
 };
 
-export default configureStore;
+export default configureStore();

@@ -6,20 +6,19 @@ import { SnackbarProvider } from 'notistack';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import * as serviceWorker from './serviceWorker';
 import App from './App';
-import configureStore from './store';
-import { Firebase, FirebaseContext } from './firebase';
 import history from './history';
 import './index.css';
 import theme from './assets/theme';
 import Notifier from './components/Notifier';
 
-const store = configureStore();
+import store from './store';
+import { firebase, FirebaseContext } from './firebase';
 
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <FirebaseContext.Provider value={new Firebase()}>
+        <FirebaseContext.Provider value={firebase}>
           <MuiThemeProvider theme={theme}>
             <SnackbarProvider
               anchorOrigin={{

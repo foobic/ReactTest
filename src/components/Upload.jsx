@@ -49,9 +49,9 @@ class Upload extends Component {
   }
 
   onDrop(picture) {
-    const { setPictures } = this.props;
-    const pictures = this.props.pictures.pictures.concat(picture);
-    setPictures(pictures);
+    const { setFiles } = this.props;
+    const files = this.props.pictures.files.concat(picture);
+    setFiles(files);
   }
 
   render() {
@@ -92,7 +92,7 @@ class Upload extends Component {
           <Button
             variant="contained"
             color="secondary"
-            onClick={() => upload(firebase)}
+            onClick={upload}
             disabled={pictures.length === 0}
             className={classes.btn}>
             Upload

@@ -14,6 +14,7 @@ import DialogContent from '@material-ui/core/DialogContent/index';
 import DialogContentText from '@material-ui/core/DialogContentText/index';
 import DialogTitle from '@material-ui/core/DialogTitle/index';
 import withMobileDialog from '@material-ui/core/withMobileDialog/index';
+import Gallery from './Gallery';
 import mainTheme from '../assets/theme';
 
 const styles = theme => ({
@@ -45,6 +46,10 @@ const styles = theme => ({
 });
 
 class Home extends Component {
+  componentDidMount() {
+    this.props.fetchAllPictures();
+  }
+
   render() {
     const {
       changeQuitDialogStatus,
@@ -52,6 +57,7 @@ class Home extends Component {
       ui,
       classes,
       fullScreen,
+      pictures,
     } = this.props;
 
     const { isQuitDialogOpen } = ui;
@@ -105,6 +111,9 @@ class Home extends Component {
             </Button>
           </DialogActions>
         </Dialog>
+
+        {/*  Images */}
+        <Gallery images={pictures.pictures} />
       </div>
     );
   }
