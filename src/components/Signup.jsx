@@ -123,7 +123,7 @@ class Signup extends Component {
             variant="contained"
             color="primary"
             className={classes.button}
-            onClick={() => signupWithEmail(firebase)}>
+            onClick={signupWithEmail}>
             Sign up
           </Button>
           <hr className={classes.delimiter} />

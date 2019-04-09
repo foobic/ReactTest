@@ -1,18 +1,29 @@
 import {
-  AUTHORIZE_ACTION,
+  AUTHORIZE,
   UPDATE_EMAIL,
   UPDATE_PASS,
   UPDATE_PASS_REPEAT,
   CHANGE_DIALOG_STATE,
+  SIGNOUT,
 } from './actionTypes';
 
-import { changeLoaderStatus, enqueueSnackbar } from '../UI/actions';
+import {
+  changeLoaderStatus,
+  changeQuitDialogStatus,
+  enqueueSnackbar,
+} from '../UI/actions';
 import * as ROUTES from '../../routes';
 import history from '../../history';
+import { firebase } from '../../firebase';
 
-export const authorize = user => ({
-  type: AUTHORIZE_ACTION,
+export const authorizeAction = user => ({
+  type: AUTHORIZE,
   payload: { user },
+});
+
+export const signoutAction = () => ({
+  type: SIGNOUT,
+  payload: null,
 });
 
 export const updateEmail = email => ({
@@ -35,7 +46,7 @@ export const changeDialogState = emailDialogIsOpen => ({
   payload: { emailDialogIsOpen },
 });
 
-export const signupWithEmail = firebase => {
+export const signupWithEmail = () => {
   return (dispatch, getState) => {
     dispatch(changeLoaderStatus(true));
     const { auth } = getState();
@@ -64,7 +75,7 @@ export const signupWithEmail = firebase => {
   };
 };
 
-export const signinWithEmail = firebase => {
+export const signinWithEmail = () => {
   return (dispatch, getState) => {
     const { auth } = getState();
     dispatch(changeLoaderStatus(true));
@@ -72,7 +83,7 @@ export const signinWithEmail = firebase => {
       .signInWithEmailAndPassword(auth.email, auth.pass)
       .then(authedUser => {
         console.log(authedUser);
-        dispatch(authorize(authedUser.user));
+        dispatch(authorizeAction(authedUser.user));
         dispatch(changeDialogState(false));
         dispatch(
           enqueueSnackbar({
@@ -96,15 +107,28 @@ export const signinWithEmail = firebase => {
   };
 };
 
-export const signinWithGoogle = firebase => {
+export const signinWithGoogle = () => {
   return dispatch =>
     firebase
       .doSignInWithGoogle()
       .then(authedUser => {
-        dispatch(authorize(authedUser.user));
+        dispatch(authorizeAction(authedUser.user));
       })
       .then(() => history.push(ROUTES.ACCOUNT))
       .catch(error => {
         this.setState({ error });
       });
+};
+
+export const signout = () => {
+  return dispatch => {
+    dispatch(signoutAction());
+    dispatch(
+      enqueueSnackbar({
+        message: `You are successfully logged out`,
+        options: { variant: 'success', autoHideDuration: 2000 },
+      }),
+    );
+    dispatch(changeQuitDialogStatus(false));
+  };
 };

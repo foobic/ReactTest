@@ -1,9 +1,10 @@
 import {
-  AUTHORIZE_ACTION,
+  AUTHORIZE,
   UPDATE_EMAIL,
   UPDATE_PASS,
   UPDATE_PASS_REPEAT,
   CHANGE_DIALOG_STATE,
+  SIGNOUT,
 } from './actionTypes';
 
 const initialState = {
@@ -16,8 +17,10 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case AUTHORIZE_ACTION:
+    case AUTHORIZE:
       return { ...state, user: { ...action.payload.user } };
+    case SIGNOUT:
+      return { ...state, user: action.payload };
     case UPDATE_EMAIL:
       return { ...state, email: action.payload.email };
     case UPDATE_PASS:

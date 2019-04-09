@@ -79,6 +79,7 @@ class Account extends Component {
       updatePass,
       changeDialogState,
       changeQuitDialogStatus,
+      signout,
       ui,
       redirectToHome,
     } = this.props;
@@ -98,7 +99,7 @@ class Account extends Component {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => signinWithGoogle(firebase)}>
+                onClick={signinWithGoogle}>
                 <SocialIcon
                   network="google"
                   className={classNames(classes.icon, classes.leftIcon)}
@@ -154,7 +155,7 @@ class Account extends Component {
                     Cancel
                   </Button>
                   <Button
-                    onClick={() => signinWithEmail(firebase)}
+                    onClick={signinWithEmail}
                     color="secondary">
                     Sign in
                   </Button>
@@ -221,7 +222,7 @@ class Account extends Component {
           </DialogContent>
           <DialogActions>
             <Button onClick={() => changeQuitDialogStatus(false)}>No</Button>
-            <Button onClick={() => {}} autoFocus>
+            <Button onClick={signout} autoFocus>
               Yes
             </Button>
           </DialogActions>
