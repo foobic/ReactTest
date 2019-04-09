@@ -8,6 +8,7 @@ import {
   HomeContainer,
   UploadContainer,
 } from './containers';
+import { PageNotFound } from './components';
 import { FirebaseContext } from './firebase';
 
 const App = props => {
@@ -39,6 +40,7 @@ const App = props => {
               path={ROUTES.SIGN_UP}
               component={() => <SignupContainer firebase={firebase} />}
             />
+            <Route component={() => <PageNotFound />} />
           </Switch>
         );
       }}
