@@ -46,7 +46,9 @@ const styles = theme => ({
 });
 
 class Home extends Component {
+
   componentDidMount() {
+    document.title = 'Home';
     this.props.fetchAllPictures();
   }
 

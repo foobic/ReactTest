@@ -61,6 +61,10 @@ const styles = theme => ({
 });
 
 class Account extends Component {
+  componentDidMount() {
+    document.title = 'Account';
+  }
+
   render() {
     const {
       classes,

@@ -48,6 +48,10 @@ class Upload extends Component {
     this.onDrop = this.onDrop.bind(this);
   }
 
+  componentDidMount() {
+    document.title = 'Upload';
+  }
+
   onDrop(picture) {
     const { setFiles } = this.props;
     const files = this.props.pictures.files.concat(picture);

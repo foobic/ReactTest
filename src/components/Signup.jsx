@@ -50,6 +50,10 @@ const styles = theme => ({
 });
 
 class Signup extends Component {
+  componentDidMount() {
+    document.title = 'Sign up';
+  }
+
   render() {
     const {
       classes,

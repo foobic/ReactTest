@@ -16,6 +16,10 @@ const styles = theme => ({
 });
 
 class PageNotFound extends Component {
+  componentDidMount() {
+    document.title = 'Page Not Found';
+  }
+
   render() {
     const { classes } = this.props;
     return <div className={classes.root}>404</div>;
