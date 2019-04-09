@@ -78,7 +78,7 @@ class Upload extends Component {
           onChange={this.onDrop}
           withPreview
           withLabel
-          imgExtension={['.jpg', '.gif', '.png', '.gif']}
+          imgExtension={['.jpg', '.jpeg', '.png', '.gif']}
           maxFileSize={5242880}
         />
         <div className={classes.btnContainer}>

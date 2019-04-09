@@ -15,10 +15,19 @@ class Gallery extends Component {
     super(props);
 
     this.onCurrentImageChange = this.onCurrentImageChange.bind(this);
+    this.deletePicture = this.deletePicture.bind(this);
   }
 
+  state = {
+    curPicture: 0,
+  };
+
   onCurrentImageChange(index) {
-    // TODO: Delete image
+    this.setState({ curPicture: index });
+  }
+
+  deletePicture() {
+    this.props.removePicture(this.state.curPicture);
   }
 
   render() {
@@ -33,7 +42,7 @@ class Gallery extends Component {
           currentImageWillChange={this.onCurrentImageChange}
           margin={3}
           customControls={[
-            <button key="deleteImage" onClick={this.deleteImage}>
+            <button key="deleteImage" onClick={this.deletePicture}>
               Delete Image
             </button>,
           ]}

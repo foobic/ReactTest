@@ -58,6 +58,7 @@ class Home extends Component {
       classes,
       fullScreen,
       pictures,
+      removePicture,
     } = this.props;
 
     const { isQuitDialogOpen } = ui;
@@ -113,7 +114,7 @@ class Home extends Component {
         </Dialog>
 
         {/*  Images */}
-        <Gallery images={pictures.pictures} />
+        <Gallery images={pictures.pictures} removePicture={removePicture} />
       </div>
     );
   }

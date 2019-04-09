@@ -66,6 +66,18 @@ const notifications = {
         options: { variant: 'error', autoHideDuration: 1000 },
       }),
   },
+  deleting: {
+    success: name =>
+      enqueueSnackbar({
+        message: `Image ${name} successfully deleted.`,
+        options: { variant: 'success', autoHideDuration: 1000 },
+      }),
+    failed: name =>
+      enqueueSnackbar({
+        message: `Failed during deleting ${name}`,
+        options: { variant: 'error', autoHideDuration: 1000 },
+      }),
+  },
 };
 
 const putStorageOne = async (dispatch, file, uid, filename) => {
@@ -124,7 +136,6 @@ export const upload = () => {
 };
 
 export const fetchAllPictures = () => {
-  // console.log()
   return async (dispatch, getState) => {
     const { auth } = getState();
     await firebase.db
@@ -141,5 +152,50 @@ export const fetchAllPictures = () => {
         if (res.length > 0) dispatch(notifications.fetch.success());
       })
       .catch(() => dispatch(notifications.fetch.failed()));
+  };
+};
+
+const deletePicture = async (auth, picture, dispatch) => {
+  try {
+    // deleting from db
+    await firebase.db
+      .collection('pictures')
+      .doc(auth.user.uid)
+      .collection('pictures')
+      .doc(picture.storageRef.randomHash)
+      .delete();
+    // deleting from storage
+    await firebase.storage
+      .ref(`${auth.user.uid}/${picture.storageRef.randomHash}`)
+      .delete();
+    dispatch(notifications.deleting.success(picture.caption));
+  } catch (e) {
+    dispatch(notifications.deleting.failed(picture.caption));
+  }
+};
+
+export const removePicture = removeIndex => {
+  return async (dispatch, getState) => {
+    const { auth, pictures } = getState();
+    await deletePicture(auth, pictures.pictures[removeIndex], dispatch);
+    dispatch(
+      setPictures(
+        pictures.pictures.filter((val, index) => index !== removeIndex),
+      ),
+    );
+    // await firebase.db
+    //   .collection('pictures')
+    //   .doc(auth.user.uid)
+    //   .collection('pictures')
+    //   .get()
+    //   .then(function(querySnapshot) {
+    //     const res = [];
+    //     querySnapshot.forEach(function(doc) {
+    //       res.push(doc.data());
+    //     });
+    //     dispatch(setPictures(res));
+    //     if (res.length > 0) dispatch(notifications.fetch.success());
+    //   })
+    //   .catch(() => dispatch(notifications.fetch.failed()));
   };
 };
