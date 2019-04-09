@@ -9,6 +9,7 @@ import {
   signinWithEmail,
   signinWithGoogle,
   signout,
+  loadFromLS,
 } from '../store/Auth/actions';
 import { changeQuitDialogStatus } from '../store/UI/actions';
 import * as ROUTES from '../routes';
@@ -32,6 +33,7 @@ const mapDispatchToProps = dispatch =>
       signinWithGoogle,
       changeQuitDialogStatus,
       signout,
+      loadFromLS,
       redirectToHome: () => push(ROUTES.HOME),
       redirectToSignup: () => push(ROUTES.SIGN_UP),
     },

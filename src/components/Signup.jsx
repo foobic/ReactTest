@@ -52,6 +52,10 @@ const styles = theme => ({
 class Signup extends Component {
   componentDidMount() {
     document.title = 'Sign up';
+    if (this.props.auth.user) this.props.redirectToAccount();
+    else {
+      this.props.loadFromLS();
+    }
   }
 
   render() {

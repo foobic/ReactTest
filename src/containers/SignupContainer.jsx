@@ -8,6 +8,7 @@ import {
   updatePass,
   updatePassRepeat,
   signupWithEmail,
+  loadFromLS,
 } from '../store/Auth/actions';
 
 const mapStateToProps = state => {
@@ -23,6 +24,7 @@ const mapDispatchToProps = dispatch =>
       updatePass,
       updatePassRepeat,
       signupWithEmail,
+      loadFromLS,
       redirectToHome: () => push(ROUTES.HOME),
       redirectToAccount: () => push(ROUTES.ACCOUNT),
     },

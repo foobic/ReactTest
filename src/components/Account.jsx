@@ -66,6 +66,8 @@ const styles = theme => ({
 class Account extends Component {
   componentDidMount() {
     document.title = 'Account';
+    console.log(this.props)
+    if (!this.props.auth.user) this.props.loadFromLS();
   }
 
   render() {
@@ -154,9 +156,7 @@ class Account extends Component {
                     color="secondary">
                     Cancel
                   </Button>
-                  <Button
-                    onClick={signinWithEmail}
-                    color="secondary">
+                  <Button onClick={signinWithEmail} color="secondary">
                     Sign in
                   </Button>
                 </DialogActions>
@@ -177,7 +177,6 @@ class Account extends Component {
                 />
                 Sign up with Email
               </Button>
-              <hr className={classes.delimiter} />
             </React.Fragment>
           )}
 
@@ -193,19 +192,18 @@ class Account extends Component {
                 />
                 Quit
               </Button>
-              {/* <AccountCircle /> */}
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                onClick={redirectToHome}>
+                <HomeIcon
+                  className={classNames(classes.extendedIcon, classes.leftIcon)}
+                />
+                Home
+              </Button>
             </React.Fragment>
           )}
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            onClick={redirectToHome}>
-            <HomeIcon
-              className={classNames(classes.extendedIcon, classes.leftIcon)}
-            />
-            Home
-          </Button>
         </div>
 
         {/* Quit Dialog */}

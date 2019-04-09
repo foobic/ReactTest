@@ -24,7 +24,6 @@ class Notifier extends Component {
 
     notifications.forEach(notification => {
       // Do nothing if snackbar is already displayed
-      console.log(this.displayed.includes(notification.key));
       if (this.displayed.includes(notification.key)) return;
       // Display snackbar using notistack
       enqueueSnackbar(notification.message, notification.options);

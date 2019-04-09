@@ -8,7 +8,7 @@ import {
 } from './actionTypes';
 
 const initialState = {
-  user: { uid: 'z7MQaaC82fd7ZLR4LymGWa97Svo1' },
+  user: null,
   email: 'foobic@gmail.com',
   pass: '123456',
   passRepeat: '123456',

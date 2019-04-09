@@ -75,6 +75,9 @@ export const signupWithEmail = () => {
   };
 };
 
+const setObjToLS = (key, obj) => localStorage.setItem(key, JSON.stringify(obj));
+const getObjFromLS = key => JSON.parse(localStorage.getItem(key));
+
 export const signinWithEmail = () => {
   return (dispatch, getState) => {
     const { auth } = getState();
@@ -82,7 +85,7 @@ export const signinWithEmail = () => {
     return firebase
       .signInWithEmailAndPassword(auth.email, auth.pass)
       .then(authedUser => {
-        console.log(authedUser);
+        setObjToLS('user', authedUser.user);
         dispatch(authorizeAction(authedUser.user));
         dispatch(changeDialogState(false));
         dispatch(
@@ -112,6 +115,7 @@ export const signinWithGoogle = () => {
     firebase
       .doSignInWithGoogle()
       .then(authedUser => {
+        setObjToLS('user', authedUser.user);
         dispatch(authorizeAction(authedUser.user));
       })
       .then(() => history.push(ROUTES.ACCOUNT))
@@ -122,6 +126,7 @@ export const signinWithGoogle = () => {
 
 export const signout = () => {
   return dispatch => {
+    localStorage.removeItem('user');
     dispatch(signoutAction());
     dispatch(
       enqueueSnackbar({
@@ -130,5 +135,20 @@ export const signout = () => {
       }),
     );
     dispatch(changeQuitDialogStatus(false));
+  };
+};
+
+export const loadFromLS = () => {
+  return dispatch => {
+    const user = getObjFromLS('user');
+    if (!user) return;
+    history.push(ROUTES.ACCOUNT);
+    dispatch(authorizeAction(user));
+    dispatch(
+      enqueueSnackbar({
+        message: `You are successfully authorized using data from local storage`,
+        options: { variant: 'success', autoHideDuration: 2000 },
+      }),
+    );
   };
 };
