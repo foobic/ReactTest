@@ -1,11 +1,4 @@
-import {
-  AUTHORIZE,
-  UPDATE_EMAIL,
-  UPDATE_PASS,
-  UPDATE_PASS_REPEAT,
-  CHANGE_DIALOG_STATE,
-  SIGNOUT,
-} from './actionTypes';
+import * as actionTypes from './actionTypes';
 
 import {
   changeLoaderStatus,
@@ -17,61 +10,69 @@ import history from '../../history';
 import { firebase } from '../../firebase';
 
 export const authorizeAction = user => ({
-  type: AUTHORIZE,
+  type: actionTypes.AUTHORIZE,
   payload: { user },
 });
 
 export const signoutAction = () => ({
-  type: SIGNOUT,
+  type: actionTypes.SIGNOUT,
   payload: null,
 });
 
 export const updateEmail = email => ({
-  type: UPDATE_EMAIL,
+  type: actionTypes.UPDATE_EMAIL,
   payload: { email },
 });
 
 export const updatePass = pass => ({
-  type: UPDATE_PASS,
+  type: actionTypes.UPDATE_PASS,
   payload: { pass },
 });
 
 export const updatePassRepeat = passRepeat => ({
-  type: UPDATE_PASS_REPEAT,
+  type: actionTypes.UPDATE_PASS_REPEAT,
   payload: { passRepeat },
 });
 
 export const changeDialogState = emailDialogIsOpen => ({
-  type: CHANGE_DIALOG_STATE,
+  type: actionTypes.CHANGE_DIALOG_STATE,
   payload: { emailDialogIsOpen },
 });
 
 export const signupWithEmail = () => {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
+    const { email, pass, passRepeat } = getState().auth;
+
+    if (pass !== passRepeat) {
+      dispatch(
+        enqueueSnackbar({
+          message: `Passwords should be equal`,
+          options: { variant: 'error', autoHideDuration: 2000 },
+        }),
+      );
+      return;
+    }
+
     dispatch(changeLoaderStatus(true));
-    const { auth } = getState();
-    return firebase
-      .createUserWithEmailAndPassword(auth.email, auth.pass)
-      .then(authedUser => {
-        dispatch(
-          enqueueSnackbar({
-            message: 'You are successfully registered. Sign in now, please.',
-            options: { variant: 'success', autoHideDuration: 2000 },
-          }),
-        );
-      })
-      .then(() => history.push(ROUTES.ACCOUNT))
-      .catch(e => {
-        dispatch(
-          enqueueSnackbar({
-            message: `Error while signup with email: ${e.message}`,
-            options: { variant: 'error', autoHideDuration: 2000 },
-          }),
-        );
-      })
-      .finally(() => {
-        dispatch(changeLoaderStatus(false));
-      });
+    try {
+      await firebase.createUserWithEmailAndPassword(email, pass);
+      dispatch(
+        enqueueSnackbar({
+          message: 'You are successfully registered. Sign in now, please.',
+          options: { variant: 'success', autoHideDuration: 2000 },
+        }),
+      );
+      history.push(ROUTES.ACCOUNT);
+    } catch (e) {
+      dispatch(
+        enqueueSnackbar({
+          message: `Error while signup with email: ${e.message}`,
+          options: { variant: 'error', autoHideDuration: 2000 },
+        }),
+      );
+    } finally {
+      dispatch(changeLoaderStatus(false));
+    }
   };
 };
 
@@ -79,49 +80,51 @@ const setObjToLS = (key, obj) => localStorage.setItem(key, JSON.stringify(obj));
 const getObjFromLS = key => JSON.parse(localStorage.getItem(key));
 
 export const signinWithEmail = () => {
-  return (dispatch, getState) => {
-    const { auth } = getState();
+  return async (dispatch, getState) => {
+    const { email, pass } = getState().auth;
     dispatch(changeLoaderStatus(true));
-    return firebase
-      .signInWithEmailAndPassword(auth.email, auth.pass)
-      .then(authedUser => {
-        setObjToLS('user', authedUser.user);
-        dispatch(authorizeAction(authedUser.user));
-        dispatch(changeDialogState(false));
-        dispatch(
-          enqueueSnackbar({
-            message: `You are successfully authorized. `,
-            options: { variant: 'success', autoHideDuration: 2000 },
-          }),
-        );
-      })
-      .then(() => history.push(ROUTES.ACCOUNT))
-      .catch(e => {
-        dispatch(
-          enqueueSnackbar({
-            message: `Error while authorization with email: ${e.message}`,
-            options: { variant: 'error', autoHideDuration: 2000 },
-          }),
-        );
-      })
-      .finally(() => {
-        dispatch(changeLoaderStatus(false));
-      });
+
+    try {
+      const { user } = await firebase.signInWithEmailAndPassword(email, pass);
+      setObjToLS('user', user);
+      dispatch(authorizeAction(user));
+      dispatch(changeDialogState(false));
+      dispatch(
+        enqueueSnackbar({
+          message: `You are successfully authorized. `,
+          options: { variant: 'success', autoHideDuration: 2000 },
+        }),
+      );
+      history.push(ROUTES.ACCOUNT);
+    } catch (e) {
+      dispatch(
+        enqueueSnackbar({
+          message: `Error while authorization with email: ${e.message}`,
+          options: { variant: 'error', autoHideDuration: 2000 },
+        }),
+      );
+    } finally {
+      dispatch(changeLoaderStatus(false));
+    }
   };
 };
 
 export const signinWithGoogle = () => {
-  return dispatch =>
-    firebase
-      .doSignInWithGoogle()
-      .then(authedUser => {
-        setObjToLS('user', authedUser.user);
-        dispatch(authorizeAction(authedUser.user));
-      })
-      .then(() => history.push(ROUTES.ACCOUNT))
-      .catch(error => {
-        this.setState({ error });
-      });
+  return async dispatch => {
+    try {
+      const { user } = await firebase.doSignInWithGoogle();
+      setObjToLS('user', user);
+      dispatch(authorizeAction(user));
+      history.push(ROUTES.ACCOUNT);
+    } catch (e) {
+      dispatch(
+        enqueueSnackbar({
+          message: `Error while authorization with google: ${e.message}`,
+          options: { variant: 'error', autoHideDuration: 2000 },
+        }),
+      );
+    }
+  };
 };
 
 export const signout = () => {
