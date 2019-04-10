@@ -8,43 +8,14 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import AddIcon from '@material-ui/icons/Add';
 import DownloadIcon from '@material-ui/icons/CloudDownload';
 import withMobileDialog from '@material-ui/core/withMobileDialog/index';
-import Gallery from './common/Gallery';
-import mainTheme from '../assets/theme';
-import Loader from './common/Loader';
-
-const styles = theme => ({
-  root: {
-    width: '100%',
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-  title: {
-    display: 'block',
-  },
-  sectionDesktop: {
-    display: 'flex',
-  },
-  fab: {
-    margin: theme.spacing.unit,
-    position: 'absolute',
-    bottom: theme.spacing.unit * 2,
-    right: theme.spacing.unit * 2,
-  },
-  hidden: {
-    display: 'none',
-  },
-});
+import Gallery from '../common/Gallery';
+import mainTheme from '../../assets/theme';
+import Loader from '../common/Loader';
+import styles from './styles';
 
 class Home extends Component {
   componentDidMount() {
     document.title = 'Home';
-    const { fetchAllPictures } = this.props;
-    fetchAllPictures();
   }
 
   render() {

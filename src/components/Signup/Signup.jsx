@@ -4,59 +4,15 @@ import { withStyles } from '@material-ui/core/styles/index';
 import classNames from 'classnames';
 import In from '@material-ui/icons/Input';
 import TextField from '@material-ui/core/TextField/index';
-import mainTheme from '../assets/theme';
-import Loader from './common/Loader';
-
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  extendedIcon: {
-    marginRight: theme.spacing.unit,
-  },
-  icon: {
-    width: 25,
-    height: 25,
-  },
-  leftIcon: {
-    color: theme.palette.secondary.dark,
-    marginRight: theme.spacing.unit,
-  },
-  fullHeight: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-  options: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    maxWidth: 500,
-    minWidth: 250,
-    padding: '20px 20px',
-    borderRadius: '10px',
-    margin: '0 auto',
-    background: 'white',
-  },
-  delimiter: {
-    width: '100%',
-    background: theme.palette.primary.main,
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-  },
-});
+import mainTheme from '../../assets/theme';
+import Loader from '../common/Loader';
+import styles from './styles';
 
 class Signup extends Component {
   componentDidMount() {
     document.title = 'Sign up';
-    const { auth, redirectToAccount, loadFromLS } = this.props;
+    const { auth, redirectToAccount } = this.props;
     if (auth.user) redirectToAccount();
-    else {
-      loadFromLS();
-    }
   }
 
   render() {
