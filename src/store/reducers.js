@@ -7,7 +7,7 @@ import UIReducer from './UI/reducers';
 export default history =>
   combineReducers({
     router: connectRouter(history),
-    ui: UIReducer,
-    pictures: PicturesReducer,
     auth: AuthReducer,
+    pictures: PicturesReducer,
+    ui: UIReducer,
   });

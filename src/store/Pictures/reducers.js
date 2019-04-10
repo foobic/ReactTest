@@ -1,9 +1,4 @@
-import {
-  SET_FILES,
-  RESET_FILES,
-  SET_PICTURES,
-  RESET_PICTURES,
-} from './actionTypes';
+import * as actionTypes from './actionTypes';
 
 const initialState = {
   files: [],
@@ -12,13 +7,13 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SET_FILES:
+    case actionTypes.SET_FILES:
       return { ...state, files: [...action.payload.files] };
-    case RESET_FILES:
+    case actionTypes.RESET_FILES:
       return { ...state, files: action.payload.files };
-    case SET_PICTURES:
+    case actionTypes.SET_PICTURES:
       return { ...state, pictures: [...action.payload.pictures] };
-    case RESET_PICTURES:
+    case actionTypes.RESET_PICTURES:
       return { ...state, pictures: action.payload.pictures };
     default:
       return state;

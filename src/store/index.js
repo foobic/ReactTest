@@ -4,7 +4,6 @@ import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProductio
 import thunk from 'redux-thunk';
 import createRootReducer from './reducers';
 import history from '../history';
-import { Firebase } from '../firebase';
 
 const composeEnhancers = composeWithDevTools({
   // options like actionSanitizer, stateSanitizer
@@ -17,7 +16,7 @@ const configureStore = preloadedState => {
     preloadedState,
     composeEnhancers(
       applyMiddleware(
-        routerMiddleware(history), // for dispatching history actions
+        routerMiddleware(history), // for dispatching history actionTypes
         thunk,
       ),
     ),
