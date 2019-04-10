@@ -1,6 +1,5 @@
-import { Firebase } from './index';
+import { firebase } from './index';
 
-const firebase = new Firebase();
 const storageRef = firebase.storage.ref();
 
 it.skip('Sign up user via Email', async done => {
