@@ -1,10 +1,23 @@
 import notifications from '../notifications';
 import actions from '../actions';
+import actionCreators from '../actionCreators';
 import router from '../../router';
 import { firebase } from '../../firebase';
 
 const setObjToLS = (key, obj) => localStorage.setItem(key, JSON.stringify(obj));
 const getObjFromLS = key => JSON.parse(localStorage.getItem(key));
+
+export const updateEmail = email => dispatch =>
+  dispatch(actions.auth.updateEmail(email));
+export const updatePass = pass => dispatch =>
+  dispatch(actions.auth.updatePass(pass));
+export const updatePassRepeat = pass => dispatch =>
+  dispatch(actions.auth.updatePassRepeat(pass));
+
+export const authorize = user => dispatch => {
+  dispatch(actions.auth.authorize(user));
+  dispatch(actionCreators.pictures.fetchAllPictures());
+};
 
 export const signupWithEmail = () => {
   return async (dispatch, getState) => {
@@ -38,7 +51,7 @@ export const signinWithEmail = () => {
       setObjToLS('user', user);
 
       dispatch(actions.ui.changeDialogState(false));
-      dispatch(actions.auth.authorize(user));
+      dispatch(authorize(user));
       dispatch(notifications.auth.signinEmail.success());
       dispatch(router.redirectToAccount());
     } catch (e) {
@@ -56,7 +69,7 @@ export const signinWithGoogle = () => {
       const { user } = await firebase.doSignInWithGoogle();
       setObjToLS('user', user);
 
-      dispatch(actions.auth.authorize(user));
+      dispatch(authorize(user));
       dispatch(notifications.auth.signinGoogle.success());
       dispatch(router.redirectToAccount());
     } catch (e) {
@@ -66,13 +79,6 @@ export const signinWithGoogle = () => {
     }
   };
 };
-
-export const updateEmail = email => dispatch =>
-  dispatch(actions.auth.updateEmail(email));
-export const updatePass = pass => dispatch =>
-  dispatch(actions.auth.updatePass(pass));
-export const updatePassRepeat = pass => dispatch =>
-  dispatch(actions.auth.updatePassRepeat(pass));
 
 export const signout = () => {
   return dispatch => {
@@ -89,7 +95,7 @@ export const loadFromLS = () => {
     const user = getObjFromLS('user');
     if (!user) return;
 
-    dispatch(actions.auth.authorize(user));
+    dispatch(authorize(user));
     dispatch(notifications.auth.loadFromLS());
     dispatch(router.redirectToAccount());
   };

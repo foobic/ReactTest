@@ -1,6 +1,6 @@
 import actions from './actions';
 
-const createSnackbar = (message, variant, autoHideDuration = 1000) => {
+const createSnackbar = (message, variant, autoHideDuration = 3000) => {
   return actions.ui.enqueueSnackbar({
     message,
     options: { variant, autoHideDuration },

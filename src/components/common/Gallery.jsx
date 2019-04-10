@@ -29,6 +29,7 @@ class Gallery extends Component {
   deletePicture() {
     const { removePicture } = this.props;
     const { curPicture } = this.state;
+    console.log(curPicture);
     removePicture(curPicture);
   }
 
@@ -41,6 +42,7 @@ class Gallery extends Component {
           images={images}
           enableLightbox
           enableImageSelection={false}
+          onClickImage={() => {}}
           currentImageWillChange={this.onCurrentImageChange}
           margin={3}
           customControls={[

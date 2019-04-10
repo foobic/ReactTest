@@ -32,32 +32,6 @@ const putStorageOne = async (dispatch, file, uid, filename) => {
     return Promise.reject(new Error('Failed while uploading'));
   }
 };
-
-export const upload = () => {
-  return async (dispatch, getState) => {
-    const { auth, pictures } = getState();
-    dispatch(actions.ui.changeLoaderStatus(true));
-    return Promise.all(
-      pictures.files.map(async file => {
-        await putStorageOne(dispatch, file, auth.user.uid, file.name);
-      }),
-    )
-      .then(url => {
-        dispatch(notifications.pictures.all.success());
-      })
-      .catch(error => {
-        dispatch(notifications.pictures.all.failed());
-      })
-      .finally(() => {
-        dispatch(actions.ui.changeLoaderStatus(false));
-        dispatch(actions.pictures.resetFiles());
-      });
-  };
-};
-
-export const setFiles = pictures => dispatch =>
-  dispatch(actions.pictures.setFiles(pictures));
-
 export const fetchAllPictures = () => {
   return async (dispatch, getState) => {
     const { auth } = getState();
@@ -84,10 +58,37 @@ export const fetchAllPictures = () => {
   };
 };
 
+export const upload = () => {
+  return async (dispatch, getState) => {
+    const { auth, pictures } = getState();
+    dispatch(actions.ui.changeLoaderStatus(true));
+    return Promise.all(
+      pictures.files.map(async file => {
+        await putStorageOne(dispatch, file, auth.user.uid, file.name);
+      }),
+    )
+      .then(url => {
+        dispatch(fetchAllPictures());
+        dispatch(notifications.pictures.all.success());
+      })
+      .catch(error => {
+        dispatch(notifications.pictures.all.failed());
+      })
+      .finally(() => {
+        dispatch(actions.ui.changeLoaderStatus(false));
+        dispatch(actions.pictures.resetFiles());
+      });
+  };
+};
+
+export const setFiles = pictures => dispatch =>
+  dispatch(actions.pictures.setFiles(pictures));
+
 export const removePicture = removeIndex => {
   return async (dispatch, getState) => {
     const { auth, pictures } = getState();
-    const { picture } = pictures;
+    const picture = pictures.pictures[removeIndex];
+    dispatch(actions.ui.changeLoaderStatus(true));
     try {
       // deleting from db
       await firebase.db
@@ -109,6 +110,8 @@ export const removePicture = removeIndex => {
       );
     } catch (e) {
       dispatch(notifications.pictures.deleting.failed(picture.caption));
+    } finally {
+      dispatch(actions.ui.changeLoaderStatus(false));
     }
   };
 };
