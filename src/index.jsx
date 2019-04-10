@@ -15,7 +15,6 @@ import store from './store';
 import { firebase, FirebaseContext } from './firebase';
 
 const render = () => {
-  // console.log()
   ReactDOM.render(
     <Provider store={store}>
       <ConnectedRouter history={history}>

@@ -67,11 +67,11 @@ export const upload = () => {
         await putStorageOne(dispatch, file, auth.user.uid, file.name);
       }),
     )
-      .then(url => {
+      .then(() => {
         dispatch(fetchAllPictures());
         dispatch(notifications.pictures.all.success());
       })
-      .catch(error => {
+      .catch(() => {
         dispatch(notifications.pictures.all.failed());
       })
       .finally(() => {
