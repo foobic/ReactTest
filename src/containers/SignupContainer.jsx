@@ -9,6 +9,7 @@ import router from '../router';
 const mapStateToProps = state => {
   return {
     auth: { ...state.auth },
+    ui: { ...state.ui },
   };
 };
 

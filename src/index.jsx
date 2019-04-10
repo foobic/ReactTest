@@ -9,12 +9,13 @@ import App from './App';
 import history from './history';
 import './index.css';
 import theme from './assets/theme';
-import Notifier from './components/Notifier';
+import Notifier from './components/common/Notifier';
 
 import store from './store';
 import { firebase, FirebaseContext } from './firebase';
 
 const render = () => {
+  // console.log()
   ReactDOM.render(
     <Provider store={store}>
       <ConnectedRouter history={history}>

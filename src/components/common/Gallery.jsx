@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
 import ReacGridGallery from 'react-grid-gallery';
-import mainTheme from '../assets/theme';
+import mainTheme from '../../assets/theme';
 
 const styles = theme => ({
   root: {
@@ -27,7 +27,9 @@ class Gallery extends Component {
   }
 
   deletePicture() {
-    this.props.removePicture(this.state.curPicture);
+    const { removePicture } = this.props;
+    const { curPicture } = this.state;
+    removePicture(curPicture);
   }
 
   render() {

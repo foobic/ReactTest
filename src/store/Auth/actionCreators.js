@@ -19,11 +19,11 @@ export const signupWithEmail = () => {
     try {
       await firebase.createUserWithEmailAndPassword(email, pass);
       dispatch(notifications.auth.signup.success());
+      dispatch(router.redirectToAccount());
     } catch (e) {
       dispatch(notifications.auth.signup.failed(e));
     } finally {
       dispatch(actions.ui.changeLoaderStatus(false));
-      dispatch(router.redirectToAccount());
     }
   };
 };
@@ -37,10 +37,9 @@ export const signinWithEmail = () => {
       const { user } = await firebase.signInWithEmailAndPassword(email, pass);
       setObjToLS('user', user);
 
-      dispatch(actions.auth.authorize(user));
       dispatch(actions.ui.changeDialogState(false));
+      dispatch(actions.auth.authorize(user));
       dispatch(notifications.auth.signinEmail.success());
-
       dispatch(router.redirectToAccount());
     } catch (e) {
       dispatch(notifications.auth.signinEmail.failed(e));
@@ -52,6 +51,7 @@ export const signinWithEmail = () => {
 
 export const signinWithGoogle = () => {
   return async dispatch => {
+    dispatch(actions.ui.changeLoaderStatus(true));
     try {
       const { user } = await firebase.doSignInWithGoogle();
       setObjToLS('user', user);
@@ -61,6 +61,8 @@ export const signinWithGoogle = () => {
       dispatch(router.redirectToAccount());
     } catch (e) {
       dispatch(notifications.auth.signinGoogle.failed(e));
+    } finally {
+      dispatch(actions.ui.changeLoaderStatus(false));
     }
   };
 };

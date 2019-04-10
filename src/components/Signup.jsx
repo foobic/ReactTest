@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import In from '@material-ui/icons/Input';
 import TextField from '@material-ui/core/TextField/index';
 import mainTheme from '../assets/theme';
-import Loader from './Loader';
+import Loader from './common/Loader';
 
 const styles = theme => ({
   button: {
@@ -68,61 +68,60 @@ class Signup extends Component {
       updatePassRepeat,
       redirectToAccount,
       auth,
+      ui,
     } = this.props;
-
     const { email, pass, passRepeat } = auth;
-    return (
-      <div className={classes.fullHeight}>
-        <div className={classes.options}>
-          <Loader
-            type="Oval"
-            color={mainTheme.palette.secondary.main}
-            height={80}
-            width={80}
-          />
-          <form className={classes.container} noValidate autoComplete="off">
-            <div>
-              <TextField
-                id="outlined-email-input"
-                label="Email"
-                className={classes.textField}
-                type="email"
-                name="email"
-                autoComplete="email"
-                margin="normal"
-                variant="outlined"
-                value={email}
-                onChange={e => updateEmail(e.target.value)}
-              />
-            </div>
-            <div>
-              <TextField
-                id="outlined-password-input"
-                label="Password"
-                className={classes.textField}
-                type="password"
-                autoComplete="current-password"
-                margin="normal"
-                variant="outlined"
-                value={pass}
-                onChange={e => updatePass(e.target.value)}
-              />
-            </div>
-            <div>
-              <TextField
-                id="outlined-password-input"
-                label="Repeat password"
-                className={classes.textField}
-                type="password"
-                autoComplete="current-password"
-                margin="normal"
-                variant="outlined"
-                value={passRepeat}
-                onChange={e => updatePassRepeat(e.target.value)}
-              />
-            </div>
-          </form>
 
+    const signupForm = () => {
+      return (
+        <form className={classes.container} noValidate autoComplete="off">
+          <div>
+            <TextField
+              id="outlined-email-input"
+              label="Email"
+              className={classes.textField}
+              type="email"
+              name="email"
+              autoComplete="email"
+              margin="normal"
+              variant="outlined"
+              value={email}
+              onChange={e => updateEmail(e.target.value)}
+            />
+          </div>
+          <div>
+            <TextField
+              id="outlined-password-input"
+              label="Password"
+              className={classes.textField}
+              type="password"
+              autoComplete="current-password"
+              margin="normal"
+              variant="outlined"
+              value={pass}
+              onChange={e => updatePass(e.target.value)}
+            />
+          </div>
+          <div>
+            <TextField
+              id="outlined-password-input"
+              label="Repeat password"
+              className={classes.textField}
+              type="password"
+              autoComplete="current-password"
+              margin="normal"
+              variant="outlined"
+              value={passRepeat}
+              onChange={e => updatePassRepeat(e.target.value)}
+            />
+          </div>
+        </form>
+      );
+    };
+
+    const controlButtons = () => {
+      return (
+        <React.Fragment>
           <Button
             variant="contained"
             color="primary"
@@ -141,6 +140,16 @@ class Signup extends Component {
             />
             Sign in
           </Button>
+        </React.Fragment>
+      );
+    };
+
+    if (ui.isLoading) return <Loader active />;
+    return (
+      <div className={classes.fullHeight}>
+        <div className={classes.options}>
+          {signupForm()}
+          {controlButtons()}
         </div>
       </div>
     );

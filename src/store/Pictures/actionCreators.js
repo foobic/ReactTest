@@ -61,6 +61,7 @@ export const setFiles = pictures => dispatch =>
 export const fetchAllPictures = () => {
   return async (dispatch, getState) => {
     const { auth } = getState();
+    dispatch(actions.ui.changeLoaderStatus(true));
     try {
       const res = [];
       const pictures = await firebase.db
@@ -77,6 +78,8 @@ export const fetchAllPictures = () => {
       dispatch(notifications.pictures.fetch.success());
     } catch (e) {
       dispatch(notifications.pictures.fetch.failed());
+    } finally {
+      dispatch(actions.ui.changeLoaderStatus(false));
     }
   };
 };

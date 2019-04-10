@@ -3,7 +3,7 @@ import ImageUploader from 'react-images-upload';
 import { withStyles } from '@material-ui/core/styles/index';
 import Button from '@material-ui/core/Button/index';
 import mainTheme from '../assets/theme';
-import Loader from './Loader';
+import Loader from './common/Loader';
 
 const styles = theme => ({
   root: {
@@ -59,19 +59,9 @@ class Upload extends Component {
   }
 
   render() {
-    const {
-      classes,
-      upload,
-      pictures,
-      redirectToHome,
-      ui,
-    } = this.props;
+    const { classes, upload, pictures, redirectToHome, ui } = this.props;
 
-    if (ui.isLoading) {
-      return (
-        <Loader type="Oval" color={mainTheme.white} height={80} width={80} />
-      );
-    }
+    if (ui.isLoading) return <Loader active />;
 
     return (
       <div className={classes.root}>

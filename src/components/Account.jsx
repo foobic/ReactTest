@@ -11,9 +11,9 @@ import Dialog from '@material-ui/core/Dialog/index';
 import DialogActions from '@material-ui/core/DialogActions/index';
 import DialogContent from '@material-ui/core/DialogContent/index';
 import DialogTitle from '@material-ui/core/DialogTitle/index';
-import Loader from 'react-loader-spinner';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import mainTheme from '../assets/theme';
+import Loader from './common/Loader';
 
 const styles = theme => ({
   button: {
@@ -55,9 +55,6 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
   },
-  loader: {
-    textAlign: 'center',
-  },
   displayNone: {
     display: 'none',
   },
@@ -66,8 +63,8 @@ const styles = theme => ({
 class Account extends Component {
   componentDidMount() {
     document.title = 'Account';
-    console.log(this.props);
-    if (!this.props.auth.user) this.props.loadFromLS();
+    const { auth, loadFromLS } = this.props;
+    if (!auth.user) loadFromLS();
   }
 
   render() {
@@ -86,11 +83,73 @@ class Account extends Component {
       auth,
     } = this.props;
     const iconSize = { height: 25, width: 25 };
-
     const { email, pass, user } = auth;
-
-    const isLoading = false;
     const { isQuitDialogOpen, emailDialogIsOpen } = ui;
+
+    if (ui.isLoading) return <Loader active />;
+
+    const emailDialog = () => {
+      return (
+        <Dialog
+          open={emailDialogIsOpen}
+          onClose={() => changeDialogState(false)}
+          aria-labelledby="form-dialog-title">
+          <DialogTitle id="form-dialog-title">Sign in with Email</DialogTitle>
+          <DialogContent>
+            <TextField
+              margin="dense"
+              id="name"
+              label="Email Address"
+              type="email"
+              fullWidth
+              value={email}
+              onChange={e => updateEmail(e.target.value)}
+            />
+            <TextField
+              id="outlined-password-input"
+              label="Password"
+              type="password"
+              autoComplete="current-password"
+              margin="dense"
+              fullWidth
+              value={pass}
+              onChange={e => updatePass(e.target.value)}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => changeDialogState(false)} color="secondary">
+              Cancel
+            </Button>
+            <Button onClick={signinWithEmail} color="secondary">
+              Sign in
+            </Button>
+          </DialogActions>
+        </Dialog>
+      );
+    };
+
+    const quitDialog = () => {
+      return (
+        <Dialog
+          fullScreen
+          open={isQuitDialogOpen}
+          onClose={() => changeQuitDialogStatus(false)}
+          aria-labelledby="responsive-dialog-title">
+          <DialogTitle id="responsive-dialog-title">Sign out</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to sign out?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => changeQuitDialogStatus(false)}>No</Button>
+            <Button onClick={signout} autoFocus>
+              Yes
+            </Button>
+          </DialogActions>
+        </Dialog>
+      );
+    };
 
     return (
       <div className={classes.fullHeight}>
@@ -121,51 +180,7 @@ class Account extends Component {
                 />
                 Sign in with Email
               </Button>
-
-              <Dialog
-                open={emailDialogIsOpen}
-                onClose={() => changeDialogState(false)}
-                aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">
-                  Sign in with Email
-                </DialogTitle>
-                <DialogContent>
-                  <TextField
-                    margin="dense"
-                    id="name"
-                    label="Email Address"
-                    type="email"
-                    fullWidth
-                    value={email}
-                    onChange={e => updateEmail(e.target.value)}
-                  />
-                  <TextField
-                    id="outlined-password-input"
-                    label="Password"
-                    type="password"
-                    autoComplete="current-password"
-                    margin="dense"
-                    fullWidth
-                    value={pass}
-                    onChange={e => updatePass(e.target.value)}
-                  />
-                </DialogContent>
-                <DialogActions>
-                  <Button
-                    onClick={() => changeDialogState(false)}
-                    color="secondary">
-                    Cancel
-                  </Button>
-                  <Button onClick={signinWithEmail} color="secondary">
-                    Sign in
-                  </Button>
-                </DialogActions>
-              </Dialog>
-
-              <div className={isLoading ? classes.loader : classes.displayNone}>
-                <Loader type="Oval" color="#2979ff" height={80} width={80} />
-              </div>
-
+              {emailDialog()}
               <hr className={classes.delimiter} />
               <Button
                 variant="contained"
@@ -202,29 +217,10 @@ class Account extends Component {
                 />
                 Home
               </Button>
+              {quitDialog()}
             </React.Fragment>
           )}
         </div>
-
-        {/* Quit Dialog */}
-        <Dialog
-          fullScreen
-          open={isQuitDialogOpen}
-          onClose={() => changeQuitDialogStatus(false)}
-          aria-labelledby="responsive-dialog-title">
-          <DialogTitle id="responsive-dialog-title">Sign out</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Are you sure you want to sign out?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => changeQuitDialogStatus(false)}>No</Button>
-            <Button onClick={signout} autoFocus>
-              Yes
-            </Button>
-          </DialogActions>
-        </Dialog>
       </div>
     );
   }

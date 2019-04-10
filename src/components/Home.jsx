@@ -8,8 +8,9 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import AddIcon from '@material-ui/icons/Add';
 import DownloadIcon from '@material-ui/icons/CloudDownload';
 import withMobileDialog from '@material-ui/core/withMobileDialog/index';
-import Gallery from './Gallery';
+import Gallery from './common/Gallery';
 import mainTheme from '../assets/theme';
+import Loader from './common/Loader';
 
 const styles = theme => ({
   root: {
@@ -54,7 +55,10 @@ class Home extends Component {
       fetchAllPictures,
       redirectToAccount,
       redirectToUpload,
+      ui,
     } = this.props;
+
+    if (ui.isLoading) return <Loader active />;
 
     return (
       <div className={classes.root}>
@@ -93,7 +97,6 @@ class Home extends Component {
             </div>
           </Toolbar>
         </AppBar>
-        {/*  Images */}
         <Gallery images={pictures.pictures} removePicture={removePicture} />
       </div>
     );
