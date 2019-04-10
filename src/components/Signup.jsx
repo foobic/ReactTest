@@ -52,25 +52,25 @@ const styles = theme => ({
 class Signup extends Component {
   componentDidMount() {
     document.title = 'Sign up';
-    if (this.props.auth.user) this.props.redirectToAccount();
+    const { auth, redirectToAccount, loadFromLS } = this.props;
+    if (auth.user) redirectToAccount();
     else {
-      this.props.loadFromLS();
+      loadFromLS();
     }
   }
 
   render() {
     const {
       classes,
-      redirectToAccount,
       signupWithEmail,
       updateEmail,
       updatePass,
       updatePassRepeat,
-      firebase,
+      redirectToAccount,
+      auth,
     } = this.props;
 
-    const { email, pass, passRepeat } = this.props.auth;
-
+    const { email, pass, passRepeat } = auth;
     return (
       <div className={classes.fullHeight}>
         <div className={classes.options}>

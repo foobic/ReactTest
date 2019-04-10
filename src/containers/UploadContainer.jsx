@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
 import { bindActionCreators } from 'redux';
 import { Upload } from '../components';
-import * as ROUTES from '../routes';
-import { setFiles, resetFiles, upload } from '../store/Pictures/actions';
+
+import actionCreators from '../store/actionCreators';
+import router from '../router';
 
 const mapStateToProps = state => {
   return {
@@ -15,10 +15,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      setFiles,
-      resetFiles,
-      upload,
-      redirectToHome: () => push(ROUTES.HOME),
+      ...actionCreators.pictures,
+      ...router,
     },
     dispatch,
   );

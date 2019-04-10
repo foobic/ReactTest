@@ -1,15 +1,10 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { push } from 'connected-react-router';
 import { Signup } from '../components';
-import * as ROUTES from '../routes';
-import {
-  updateEmail,
-  updatePass,
-  updatePassRepeat,
-  signupWithEmail,
-  loadFromLS,
-} from '../store/Auth/actions';
+
+import actionCreators from '../store/actionCreators';
+import actions from '../store/actions';
+import router from '../router';
 
 const mapStateToProps = state => {
   return {
@@ -17,19 +12,16 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
     {
-      updateEmail,
-      updatePass,
-      updatePassRepeat,
-      signupWithEmail,
-      loadFromLS,
-      redirectToHome: () => push(ROUTES.HOME),
-      redirectToAccount: () => push(ROUTES.ACCOUNT),
+      ...actionCreators.auth,
+      ...actions.ui,
+      ...router,
     },
     dispatch,
   );
+};
 
 export default connect(
   mapStateToProps,

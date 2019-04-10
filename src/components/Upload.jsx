@@ -53,8 +53,8 @@ class Upload extends Component {
   }
 
   onDrop(picture) {
-    const { setFiles } = this.props;
-    const files = this.props.pictures.files.concat(picture);
+    const { setFiles, pictures } = this.props;
+    const files = pictures.files.concat(picture);
     setFiles(files);
   }
 
@@ -64,7 +64,6 @@ class Upload extends Component {
       upload,
       pictures,
       redirectToHome,
-      firebase,
       ui,
     } = this.props;
 

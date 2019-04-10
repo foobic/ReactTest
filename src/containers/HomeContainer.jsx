@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
 import { bindActionCreators } from 'redux';
 import { Home } from '../components';
-import * as ROUTES from '../routes';
-import { fetchAllPictures, removePicture } from '../store/Pictures/actions';
+
+import actionCreators from '../store/actionCreators';
+import router from '../router';
 
 const mapStateToProps = state => {
   return {
@@ -15,11 +15,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      fetchAllPictures,
-      removePicture,
-      redirectToAccount: () => push(ROUTES.ACCOUNT),
-      redirectToUpload: () => push(ROUTES.UPLOAD),
-      redirectToSignup: () => push(ROUTES.SIGN_UP),
+      ...actionCreators.pictures,
+      ...router,
     },
     dispatch,
   );

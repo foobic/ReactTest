@@ -66,31 +66,31 @@ const styles = theme => ({
 class Account extends Component {
   componentDidMount() {
     document.title = 'Account';
-    console.log(this.props)
+    console.log(this.props);
     if (!this.props.auth.user) this.props.loadFromLS();
   }
 
   render() {
     const {
       classes,
-      redirectToSignup,
       signinWithGoogle,
       signinWithEmail,
-      firebase,
       updateEmail,
       updatePass,
       changeDialogState,
       changeQuitDialogStatus,
       signout,
-      ui,
       redirectToHome,
+      redirectToSignup,
+      ui,
+      auth,
     } = this.props;
     const iconSize = { height: 25, width: 25 };
 
-    const { emailDialogIsOpen, email, pass, user } = this.props.auth;
+    const { email, pass, user } = auth;
 
     const isLoading = false;
-    const { isQuitDialogOpen } = ui;
+    const { isQuitDialogOpen, emailDialogIsOpen } = ui;
 
     return (
       <div className={classes.fullHeight}>

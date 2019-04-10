@@ -5,17 +5,9 @@ import IconButton from '@material-ui/core/IconButton/index';
 import Typography from '@material-ui/core/Typography/index';
 import { withStyles } from '@material-ui/core/styles/index';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Fab from '@material-ui/core/Fab/index';
 import AddIcon from '@material-ui/icons/Add';
-import Button from '@material-ui/core/Button/index';
-import Dialog from '@material-ui/core/Dialog/index';
-import DialogActions from '@material-ui/core/DialogActions/index';
-import DialogContent from '@material-ui/core/DialogContent/index';
-import DialogContentText from '@material-ui/core/DialogContentText/index';
-import DialogTitle from '@material-ui/core/DialogTitle/index';
+import DownloadIcon from '@material-ui/icons/CloudDownload';
 import withMobileDialog from '@material-ui/core/withMobileDialog/index';
-import HomeIcon from '@material-ui/icons/Home';
-import classNames from 'classnames';
 import Gallery from './Gallery';
 import mainTheme from '../assets/theme';
 
@@ -50,19 +42,18 @@ const styles = theme => ({
 class Home extends Component {
   componentDidMount() {
     document.title = 'Home';
-    this.props.fetchAllPictures();
+    const { fetchAllPictures } = this.props;
+    fetchAllPictures();
   }
 
   render() {
     const {
-      changeQuitDialogStatus,
-      redirectToUpload,
-      ui,
       classes,
-      fullScreen,
       pictures,
       removePicture,
+      fetchAllPictures,
       redirectToAccount,
+      redirectToUpload,
     } = this.props;
 
     return (
@@ -81,6 +72,20 @@ class Home extends Component {
               <IconButton
                 aria-owns="material-appbar"
                 aria-haspopup="true"
+                onClick={fetchAllPictures}
+                color="inherit">
+                <DownloadIcon />
+              </IconButton>
+              <IconButton
+                aria-owns="material-appbar"
+                aria-haspopup="true"
+                onClick={redirectToUpload}
+                color="inherit">
+                <AddIcon />
+              </IconButton>
+              <IconButton
+                aria-owns="material-appbar"
+                aria-haspopup="true"
                 onClick={redirectToAccount}
                 color="inherit">
                 <AccountCircle />
@@ -88,14 +93,6 @@ class Home extends Component {
             </div>
           </Toolbar>
         </AppBar>
-        <Fab
-          color="primary"
-          aria-label="Add"
-          className={classes.fab}
-          onClick={redirectToUpload}>
-          <AddIcon />
-        </Fab>
-
         {/*  Images */}
         <Gallery images={pictures.pictures} removePicture={removePicture} />
       </div>
