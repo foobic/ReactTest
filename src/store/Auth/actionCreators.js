@@ -19,11 +19,11 @@ export const signupWithEmail = () => {
     try {
       await firebase.createUserWithEmailAndPassword(email, pass);
       dispatch(notifications.auth.signup.success());
-      router.redirect.account();
     } catch (e) {
       dispatch(notifications.auth.signup.failed(e));
     } finally {
       dispatch(actions.ui.changeLoaderStatus(false));
+      dispatch(router.redirectToAccount());
     }
   };
 };
@@ -41,7 +41,7 @@ export const signinWithEmail = () => {
       dispatch(actions.ui.changeDialogState(false));
       dispatch(notifications.auth.signinEmail.success());
 
-      router.redirect.account();
+      dispatch(router.redirectToAccount());
     } catch (e) {
       dispatch(notifications.auth.signinEmail.failed(e));
     } finally {
@@ -58,13 +58,19 @@ export const signinWithGoogle = () => {
 
       dispatch(actions.auth.authorize(user));
       dispatch(notifications.auth.signinGoogle.success());
-
-      router.redirect.account();
+      dispatch(router.redirectToAccount());
     } catch (e) {
       dispatch(notifications.auth.signinGoogle.failed(e));
     }
   };
 };
+
+export const updateEmail = email => dispatch =>
+  dispatch(actions.auth.updateEmail(email));
+export const updatePass = pass => dispatch =>
+  dispatch(actions.auth.updatePass(pass));
+export const updatePassRepeat = pass => dispatch =>
+  dispatch(actions.auth.updatePassRepeat(pass));
 
 export const signout = () => {
   return dispatch => {
@@ -83,7 +89,6 @@ export const loadFromLS = () => {
 
     dispatch(actions.auth.authorize(user));
     dispatch(notifications.auth.loadFromLS());
-
-    router.redirect.account();
+    dispatch(router.redirectToAccount());
   };
 };

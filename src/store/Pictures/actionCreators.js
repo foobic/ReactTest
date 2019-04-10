@@ -55,6 +55,9 @@ export const upload = () => {
   };
 };
 
+export const setFiles = pictures => dispatch =>
+  dispatch(actions.pictures.setFiles(pictures));
+
 export const fetchAllPictures = () => {
   return async (dispatch, getState) => {
     const { auth } = getState();

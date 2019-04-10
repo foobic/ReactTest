@@ -24,8 +24,3 @@ export const updatePassRepeat = passRepeat => ({
   type: actionTypes.UPDATE_PASS_REPEAT,
   payload: { passRepeat },
 });
-
-export const changeDialogState = emailDialogIsOpen => ({
-  type: actionTypes.CHANGE_DIALOG_STATE,
-  payload: { emailDialogIsOpen },
-});

@@ -1,11 +1,9 @@
-import history from './history';
+import { push } from 'connected-react-router';
 import * as ROUTES from './routes';
 
 export default {
-  redirect: {
-    home: () => history.push(ROUTES.HOME),
-    signup: () => history.push(ROUTES.SIGN_UP),
-    account: () => history.push(ROUTES.ACCOUNT),
-    upload: () => history.push(ROUTES.UPLOAD),
-  },
+  redirectToHome: () => push(ROUTES.HOME),
+  redirectToSignup: () => push(ROUTES.SIGN_UP),
+  redirectToAccount: () => push(ROUTES.ACCOUNT),
+  redirectToUpload: () => push(ROUTES.UPLOAD),
 };

@@ -4,6 +4,7 @@ const initialState = {
   isLoading: false,
   notifications: [],
   isQuitDialogOpen: false,
+  emailDialogIsOpen: false,
 };
 
 export default (state = initialState, action) => {
@@ -12,6 +13,8 @@ export default (state = initialState, action) => {
       return { ...state, isLoading: action.payload.isLoading };
     case actionTypes.CHANGE_QUIT_DIALOG_STATUS:
       return { ...state, isQuitDialogOpen: action.payload.isQuitDialogOpen };
+    case actionTypes.CHANGE_DIALOG_STATE:
+      return { ...state, emailDialogIsOpen: action.payload.emailDialogIsOpen };
     case actionTypes.ENQUEUE_SNACKBAR:
       return {
         ...state,

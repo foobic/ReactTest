@@ -5,7 +5,6 @@ const initialState = {
   email: '',
   pass: '',
   passRepeat: '',
-  emailDialogIsOpen: false,
 };
 
 export default (state = initialState, action) => {
@@ -20,8 +19,6 @@ export default (state = initialState, action) => {
       return { ...state, pass: action.payload.pass };
     case actionTypes.UPDATE_PASS_REPEAT:
       return { ...state, passRepeat: action.payload.passRepeat };
-    case actionTypes.CHANGE_DIALOG_STATE:
-      return { ...state, emailDialogIsOpen: action.payload.emailDialogIsOpen };
     default:
       return state;
   }

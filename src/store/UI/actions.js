@@ -22,3 +22,8 @@ export const removeSnackbar = key => ({
   type: actionTypes.REMOVE_SNACKBAR,
   key,
 });
+
+export const changeDialogState = emailDialogIsOpen => ({
+  type: actionTypes.CHANGE_DIALOG_STATE,
+  payload: { emailDialogIsOpen },
+});
